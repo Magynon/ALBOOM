@@ -1,0 +1,25 @@
+{
+    "news":
+    [
+        {
+            "thumbnail": "assets/images/news/1.jpeg",
+            "url": "https://www.youtube.com/watch?v=Z2QCORi-u0U",
+            "headline": "Guns N' Roses on starting tour in 2022 in North America"
+        },
+        {
+            "thumbnail": "assets/images/news/2.jpg",
+            "url": "https://www.youtube.com/watch?v=F74Tw99qfRg",
+            "headline": "Swedish guitarist Yngwie Malmsteen on how he met Leo Fender"
+        },
+        {
+            "thumbnail": "assets/images/news/3.jpg",
+            "url": "https://www.youtube.com/watch?v=F89-MOy7Xfg",
+            "headline": "Ozzy Osbourne confessing to being sober for over 20 days"
+        },
+        {
+            "thumbnail": "assets/images/news/4.jpg",
+            "url": "https://www.youtube.com/watch?v=boMOhT--utg",
+            "headline": "Def Leppard unite forces with guitarist Vivian Campbell"
+        }
+    ]
+}
