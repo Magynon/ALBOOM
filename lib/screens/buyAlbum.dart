@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:app/Objects/album.dart';
+import 'package:app/Objects/cartItem.dart';
 import 'package:app/actions/openURL.dart';
 import 'package:app/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class BuyScreen extends StatefulWidget {
 
 class _BuyScreenState extends State<BuyScreen> {
   int quantity = 0;
+  final itemList = ListOfCartItems();
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -188,6 +191,15 @@ class _BuyScreenState extends State<BuyScreen> {
   }
 
   Widget cartButton() {
+    CartItem item = CartItem(widget.albumObj, quantity);
+    void addItem(CartItem item) {
+      itemList.addItemToList(item);
+      // for (int i = 0; i < itemList.listOfItems.length; i++) {
+      //   print(itemList.listOfItems[i].item.name);
+      //   print(itemList.listOfItems[i].quantity);
+      // }
+    }
+
     return Align(
       alignment: Alignment.bottomRight,
       child: Padding(
@@ -215,7 +227,7 @@ class _BuyScreenState extends State<BuyScreen> {
                       child: Icon(Icons.shopping_cart),
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
-                      onPressed: () => {},
+                      onPressed: () => {addItem(item)},
                     ),
                     Container(
                       alignment: Alignment.center,

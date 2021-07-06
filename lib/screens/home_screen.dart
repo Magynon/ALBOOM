@@ -1,6 +1,6 @@
 import 'package:app/Objects/album.dart';
 import 'package:app/components/bottomBar.dart';
-import 'package:app/components/topBar.dart';
+import 'package:app/components/topBarHome.dart';
 import 'package:app/database/AlbumList.dart';
 import 'package:app/database/LatestNews.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       //
-      appBar: MyAppBar(),
+      // appBar: MyAppBar(),
       //
       body: Stack(
         children: [
@@ -89,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           // bottom app bar
-          MyBottomAppBar(),
         ],
       ),
     );

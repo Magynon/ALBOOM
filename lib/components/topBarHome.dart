@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget with PreferredSizeWidget {
+class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
   final double appBarHeight = 70.0;
+
   @override
   get preferredSize => Size.fromHeight(appBarHeight);
 
