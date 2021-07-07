@@ -1,14 +1,14 @@
 import 'dart:ui';
-
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
 import 'package:app/actions/openURL.dart';
-import 'package:app/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 class BuyScreen extends StatefulWidget {
   final Album albumObj;
-  const BuyScreen({Key? key, required this.albumObj}) : super(key: key);
+  final ListOfCartItems itemList;
+  const BuyScreen({Key? key, required this.albumObj, required this.itemList})
+      : super(key: key);
 
   @override
   _BuyScreenState createState() => _BuyScreenState();
@@ -16,10 +16,10 @@ class BuyScreen extends StatefulWidget {
 
 class _BuyScreenState extends State<BuyScreen> {
   int quantity = 0;
-  final itemList = ListOfCartItems();
 
   @override
   Widget build(BuildContext context) {
+    double localHeight = MediaQuery.of(context).size.height * 0.6;
     return Stack(children: [
       Positioned(
         bottom: 0,
@@ -28,7 +28,7 @@ class _BuyScreenState extends State<BuyScreen> {
           elevation: 16,
           backgroundColor: Colors.transparent,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: localHeight,
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
@@ -91,11 +91,19 @@ class _BuyScreenState extends State<BuyScreen> {
   }
 
   Widget contentOverlay() {
+    double localHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    double albumArtHeight = localHeight * 0.35;
+    double albumDetailsHeight = localHeight * 0.105;
+    double buttonsHeight = localHeight * 0.145;
+
     return Wrap(
       direction: Axis.horizontal,
       children: [
         Container(
-          height: 300,
+          // color: Colors.blue,
+          height: localHeight * 0.35,
           child: Column(
             children: [
               Expanded(
@@ -103,7 +111,6 @@ class _BuyScreenState extends State<BuyScreen> {
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child: Image.asset(
@@ -118,24 +125,24 @@ class _BuyScreenState extends State<BuyScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
+                      padding: EdgeInsets.only(top: albumArtHeight * 0.05),
                       child: Text(
                         widget.albumObj.name,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: albumArtHeight * 0.1,
                           color: Colors.white,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: EdgeInsets.all(albumArtHeight * 0.02),
                       child: Text(
                         widget.albumObj.band,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: albumArtHeight * 0.05,
                           color: Colors.white,
                         ),
                       ),
@@ -146,126 +153,150 @@ class _BuyScreenState extends State<BuyScreen> {
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 20.0),
-              height: 90,
-              child: Column(
-                children: [
-                  Text(
-                    'Liked: ' +
-                        (widget.albumObj.like ? 'Yes' : 'No') +
-                        ' | Year: ' +
-                        widget.albumObj.year,
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
+        Container(
+          // color: Colors.green,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: albumDetailsHeight * 0.22,
+                  bottom: albumDetailsHeight * 0.22,
+                ),
+                height: albumDetailsHeight,
+                child: Column(
+                  children: [
+                    Text(
+                      'Liked: ' +
+                          (widget.albumObj.like ? 'Yes' : 'No') +
+                          ' | Year: ' +
+                          widget.albumObj.year,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: albumDetailsHeight * 0.22,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Label: ' + widget.albumObj.label,
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
+                    Text(
+                      'Label: ' + widget.albumObj.label,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: albumDetailsHeight * 0.22,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            previewButton(),
-            plusButton(),
-            cartButton(),
-          ],
+        Container(
+          // color: Colors.red,
+          height: buttonsHeight,
+          padding: EdgeInsets.only(
+              left: screenWidth * 0.04, right: screenWidth * 0.04),
+          child: Row(
+            mainAxisAlignment:
+                MediaQuery.of(context).orientation == Orientation.portrait
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.spaceEvenly,
+            children: [
+              previewButton(buttonsHeight),
+              plusButton(buttonsHeight),
+              cartButton(buttonsHeight),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  Widget cartButton() {
+  Widget cartButton(double buttonsHeight) {
     CartItem item = CartItem(widget.albumObj, quantity);
+    double localHeight = buttonsHeight * 0.4;
     void addItem(CartItem item) {
-      itemList.addItemToList(item);
+      widget.itemList.addItemToList(item);
       // for (int i = 0; i < itemList.listOfItems.length; i++) {
       //   print(itemList.listOfItems[i].item.name);
       //   print(itemList.listOfItems[i].quantity);
       // }
     }
 
-    return Align(
-      alignment: Alignment.bottomRight,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Container(
-          width: 140,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                'Checkout: ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                // color: Colors.pink,
-                child: Stack(
-                  children: [
-                    FloatingActionButton(
-                      child: Icon(Icons.shopping_cart),
+    return Container(
+      // color: Colors.amber,
+      height: buttonsHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            'Checkout: ',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w100,
+              fontSize: buttonsHeight * 0.15,
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Container(
+            // color: Colors.pink,
+            height: localHeight * 1.25,
+            width: localHeight * 1.25,
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: localHeight,
+                    height: localHeight,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.shopping_cart, size: localHeight * 0.5),
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
                       onPressed: () => {addItem(item)},
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                      child: Text(
-                        quantity.toString(),
-                        style: TextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  alignment: Alignment.center,
+                  width: localHeight * 0.4,
+                  height: localHeight * 0.4,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    quantity.toString(),
+                    style: TextStyle(
+                      fontSize: localHeight * 0.3,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget previewButton() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
+  Widget previewButton(double buttonsHeight) {
+    double localHeight = buttonsHeight * 0.4;
+
+    return Container(
+      // color: Colors.green,
       child: Row(
         children: [
           Container(
-            height: 60,
+            height: localHeight,
             decoration: BoxDecoration(
               border: Border.all(width: 1.0, color: Colors.white),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(localHeight * 0.2),
               child: TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateColor.resolveWith(
@@ -274,9 +305,10 @@ class _BuyScreenState extends State<BuyScreen> {
                 onPressed: () => openLink(widget.albumObj.url),
                 child: Text(
                   'Preview',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: localHeight * 0.4,
                   ),
                 ),
               ),
@@ -287,17 +319,24 @@ class _BuyScreenState extends State<BuyScreen> {
     );
   }
 
-  Widget plusButton() {
+  Widget plusButton(double buttonsHeight) {
+    double localHeight = buttonsHeight * 0.4;
     return Container(
+      height: localHeight,
+      width: localHeight,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(width: 1.0, color: const Color(0xFFFFFFFF)),
+        // color: Colors.blue,
       ),
       child: IconButton(
         icon: Icon(
           Icons.plus_one,
+          size: localHeight * 0.4,
           color: Colors.white,
         ),
+        padding: EdgeInsets.all(0),
         onPressed: () {
           setState(() {
             quantity += 1;

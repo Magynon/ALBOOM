@@ -1,10 +1,11 @@
 import 'package:app/Objects/album.dart';
+import 'package:app/Objects/cartItem.dart';
 import 'package:app/screens/buyAlbum.dart';
 import 'package:flutter/material.dart';
-import 'package:app/actions/openURL.dart';
 
 class AlbumList extends StatefulWidget {
-  const AlbumList({Key? key}) : super(key: key);
+  final ListOfCartItems itemList;
+  const AlbumList({Key? key, required this.itemList}) : super(key: key);
 
   @override
   _AlbumListState createState() => _AlbumListState();
@@ -12,6 +13,7 @@ class AlbumList extends StatefulWidget {
 
 class _AlbumListState extends State<AlbumList> {
   int index = 0;
+
   List albums = [
     'Trilogy',
     'Appetite For Destruction',
@@ -57,6 +59,7 @@ class _AlbumListState extends State<AlbumList> {
 
   int numberOfAlbums = 5;
   final albumList = ListOfAlbums();
+
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < numberOfAlbums; i++) {
@@ -100,7 +103,10 @@ class _AlbumListState extends State<AlbumList> {
         showDialog(
           context: context,
           builder: (builder) {
-            return BuyScreen(albumObj: albumList.listOfAlbums.elementAt(index));
+            return BuyScreen(
+              albumObj: albumList.listOfAlbums.elementAt(index),
+              itemList: widget.itemList,
+            );
           },
         );
       },

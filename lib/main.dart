@@ -13,10 +13,6 @@ class MyApp extends StatelessWidget {
         title: 'Music player',
         debugShowCheckedModeBanner: false,
         home: CurrentScreen(),
-        routes: <String, WidgetBuilder>{
-          '/Home': (context) => HomeScreen(),
-          '/Cart': (context) => CartScreen(itemList: null),
-        },
         theme: ThemeData(
           primaryColor: Colors.grey[900],
           accentColor: Colors.lightGreen[800],

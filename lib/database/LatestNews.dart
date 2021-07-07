@@ -86,16 +86,16 @@ class _LatestNewsState extends State<LatestNews> {
       NewsActions('Share', Icons.share),
       NewsActions('Hide', Icons.visibility),
     ];
+    double localWidth = MediaQuery.of(context).size.width - 60;
     return Container(
       height: 40,
-      padding: new EdgeInsets.only(right: 70.0),
-      width: MediaQuery.of(context).size.width,
+      width: localWidth,
       color: Colors.lightGreen[900]?.withOpacity(0.8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 300,
+            width: localWidth - 40,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -120,7 +120,6 @@ class _LatestNewsState extends State<LatestNews> {
 
   Widget headlineActions(List<NewsActions> choices, int index) {
     return Container(
-      width: 40,
       child: PopupMenuButton<NewsActions>(
         onSelected: (NewsActions choice) {
           if (choice.text == 'Share') {

@@ -1,10 +1,7 @@
-import 'package:app/Objects/album.dart';
-import 'package:app/components/bottomBar.dart';
+import 'package:app/Objects/cartItem.dart';
 import 'package:app/components/topBarCart.dart';
 import 'package:app/components/topBarHome.dart';
 import 'package:app/components/topBarSettings.dart';
-import 'package:app/database/AlbumList.dart';
-import 'package:app/database/LatestNews.dart';
 import 'package:app/screens/cart_screen.dart';
 import 'package:app/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,26 +17,27 @@ class CurrentScreen extends StatefulWidget {
 
 class _CurrentScreenState extends State<CurrentScreen> {
   int _selectedIndex = 0;
+  final itemList = ListOfCartItems();
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    CartScreen(itemList: null),
-    SettingsScreen(),
-  ];
-
-  static List<PreferredSizeWidget?> _appBarOptions = <PreferredSizeWidget?>[
-    HomeAppBar(),
-    CartAppBar(),
-    SettingsAppBar(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      HomeScreen(itemList: itemList),
+      CartScreen(itemList: itemList),
+      SettingsScreen(),
+    ];
+
+    List<PreferredSizeWidget?> _appBarOptions = <PreferredSizeWidget?>[
+      HomeAppBar(),
+      CartAppBar(),
+      SettingsAppBar(),
+    ];
     return Scaffold(
       //
       appBar: _appBarOptions.elementAt(_selectedIndex),
