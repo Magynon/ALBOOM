@@ -4,17 +4,18 @@ import 'package:app/Objects/cartItem.dart';
 import 'package:app/actions/openURL.dart';
 import 'package:flutter/material.dart';
 
-class BuyScreen extends StatefulWidget {
+class BuyScreenPortrait extends StatefulWidget {
   final Album albumObj;
   final ListOfCartItems itemList;
-  const BuyScreen({Key? key, required this.albumObj, required this.itemList})
+  const BuyScreenPortrait(
+      {Key? key, required this.albumObj, required this.itemList})
       : super(key: key);
 
   @override
-  _BuyScreenState createState() => _BuyScreenState();
+  _BuyScreenPortraitState createState() => _BuyScreenPortraitState();
 }
 
-class _BuyScreenState extends State<BuyScreen> {
+class _BuyScreenPortraitState extends State<BuyScreenPortrait> {
   int quantity = 0;
 
   @override
@@ -161,7 +162,7 @@ class _BuyScreenState extends State<BuyScreen> {
               Container(
                 padding: EdgeInsets.only(
                   top: albumDetailsHeight * 0.22,
-                  bottom: albumDetailsHeight * 0.22,
+                  bottom: albumDetailsHeight * 0.20,
                 ),
                 height: albumDetailsHeight,
                 child: Column(
@@ -197,10 +198,7 @@ class _BuyScreenState extends State<BuyScreen> {
           padding: EdgeInsets.only(
               left: screenWidth * 0.04, right: screenWidth * 0.04),
           child: Row(
-            mainAxisAlignment:
-                MediaQuery.of(context).orientation == Orientation.portrait
-                    ? MainAxisAlignment.spaceBetween
-                    : MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               previewButton(buttonsHeight),
               plusButton(buttonsHeight),
@@ -215,17 +213,15 @@ class _BuyScreenState extends State<BuyScreen> {
   Widget cartButton(double buttonsHeight) {
     CartItem item = CartItem(widget.albumObj, quantity);
     double localHeight = buttonsHeight * 0.4;
+
     void addItem(CartItem item) {
       widget.itemList.addItemToList(item);
-      // for (int i = 0; i < itemList.listOfItems.length; i++) {
-      //   print(itemList.listOfItems[i].item.name);
-      //   print(itemList.listOfItems[i].quantity);
-      // }
+      Navigator.pop(context);
     }
 
     return Container(
       // color: Colors.amber,
-      height: buttonsHeight,
+      height: buttonsHeight * 0.7,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -244,8 +240,11 @@ class _BuyScreenState extends State<BuyScreen> {
             // color: Colors.pink,
             height: localHeight * 1.25,
             width: localHeight * 1.25,
+
+            // BUTTON LAYERS
             child: Stack(
               children: [
+                // button icon
                 Container(
                   alignment: Alignment.center,
                   child: SizedBox(
@@ -259,6 +258,8 @@ class _BuyScreenState extends State<BuyScreen> {
                     ),
                   ),
                 ),
+
+                // button background
                 Container(
                   alignment: Alignment.center,
                   width: localHeight * 0.4,
@@ -296,7 +297,7 @@ class _BuyScreenState extends State<BuyScreen> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: EdgeInsets.all(localHeight * 0.2),
+              padding: EdgeInsets.all(localHeight * 0.1),
               child: TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateColor.resolveWith(
@@ -308,7 +309,7 @@ class _BuyScreenState extends State<BuyScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: localHeight * 0.4,
+                    fontSize: localHeight * 0.3,
                   ),
                 ),
               ),

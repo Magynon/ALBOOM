@@ -38,7 +38,7 @@ class _LatestNewsState extends State<LatestNews> {
       child: SizedBox(
         child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.only(top: 10, bottom: 50),
+            padding: EdgeInsets.only(top: 10),
             shrinkWrap: true,
             itemCount: urls.length > 10 ? 10 : urls.length,
             itemBuilder: (BuildContext context, int index) {
@@ -95,7 +95,7 @@ class _LatestNewsState extends State<LatestNews> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: localWidth - 40,
+            width: localWidth - 50,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Padding(

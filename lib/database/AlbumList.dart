@@ -1,6 +1,7 @@
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
-import 'package:app/screens/buyAlbum.dart';
+import 'package:app/screens/buyAlbum_landscape.dart';
+import 'package:app/screens/buyAlbum_portrait.dart';
 import 'package:flutter/material.dart';
 
 class AlbumList extends StatefulWidget {
@@ -103,9 +104,19 @@ class _AlbumListState extends State<AlbumList> {
         showDialog(
           context: context,
           builder: (builder) {
-            return BuyScreen(
-              albumObj: albumList.listOfAlbums.elementAt(index),
-              itemList: widget.itemList,
+            return OrientationBuilder(
+              builder: (context, orientation) {
+                if (orientation == Orientation.portrait)
+                  return BuyScreenPortrait(
+                    albumObj: albumList.listOfAlbums.elementAt(index),
+                    itemList: widget.itemList,
+                  );
+                else
+                  return BuyScreenLandscape(
+                    albumObj: albumList.listOfAlbums.elementAt(index),
+                    itemList: widget.itemList,
+                  );
+              },
             );
           },
         );

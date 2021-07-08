@@ -15,6 +15,12 @@ class ListOfCartItems {
   }
 
   addItemToList(CartItem item) {
+    for (int i = 0; i < listOfItems.length; i++) {
+      if (listOfItems.elementAt(i).item.name == item.item.name) {
+        listOfItems.elementAt(i).quantity += item.quantity;
+        return;
+      }
+    }
     listOfItems.add(item);
   }
 }
