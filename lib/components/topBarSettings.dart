@@ -15,15 +15,19 @@ class SettingsAppBar extends StatelessWidget with PreferredSizeWidget {
           AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Settings',
-                  style: TextStyle(
-                    color: Colors.lightGreen[600],
-                    fontWeight: FontWeight.w300,
-                  ),
+            title: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Settings',
+                      style: TextStyle(
+                        color: Colors.lightGreen[600],
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
