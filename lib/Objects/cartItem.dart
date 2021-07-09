@@ -23,4 +23,11 @@ class ListOfCartItems {
     }
     listOfItems.add(item);
   }
+
+  clearQueue() {
+    for (int i = 0; i < listOfItems.length; i++) {
+      listOfItems.removeAt(i);
+      i--;
+    }
+  }
 }

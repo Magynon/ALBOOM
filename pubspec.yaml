@@ -51,6 +51,15 @@ flutter:
   assets:
     - assets/images/albums/
     - assets/images/news/
+    - assets/images/author/
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: fonts/Manrope-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Manrope-Regular.ttf
+        - asset: fonts/Manrope-Light.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

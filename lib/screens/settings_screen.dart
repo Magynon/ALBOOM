@@ -1,3 +1,4 @@
+import 'package:app/actions/settingsActions.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -11,12 +12,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   List<String> settingOptions = [
     "Change app theme",
     "Credits",
-    "App version",
   ];
   List<IconData?> iconOptions = [
     Icons.thermostat,
     Icons.book,
-    Icons.copyright,
   ];
 
   @override
@@ -60,7 +59,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Expanded(
       child: SizedBox(
         child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.only(top: 10),
             shrinkWrap: true,
             itemCount: settingOptions.length,
@@ -74,6 +72,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _listElement(int index) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    List<String> listOfFunctions = [
+      "themeChange",
+      "creditsDialog",
+    ];
     return Padding(
       padding: EdgeInsets.only(
         left: screenWidth * 0.1,
@@ -81,19 +83,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         top: screenHeight * 0.02,
         bottom: screenHeight * 0.02,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-            // border: Border.all(
-            //   color: Colors.white12,
-            //   width: 1,
-            // ),
-            // borderRadius: BorderRadius.circular(20),
-            ),
-        child: InkWell(
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          onTap: () => {},
+      child: InkWell(
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        onTap: () => executeCommand(context, listOfFunctions.elementAt(index)),
+        child: Container(
           child: Padding(
             padding: EdgeInsets.only(
               left: screenWidth * 0.01,

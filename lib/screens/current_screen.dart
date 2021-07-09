@@ -73,7 +73,7 @@ class _CurrentScreenState extends State<CurrentScreen> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.lightGreen[800],
+            selectedItemColor: Colors.lightGreen[400],
             onTap: _onItemTapped,
           ),
         ),
