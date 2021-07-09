@@ -39,10 +39,10 @@ class _CartScreenState extends State<CartScreen> {
               // cart items
               Container(
                 height: screenHeight * 0.62,
-                color: Colors.white,
+                // color: Colors.white,
                 child: Column(
                   children: [
-                    listOfItems(),
+                    listOfItems(screenHeight, screenWidth),
                   ],
                 ),
               ),
@@ -73,25 +73,162 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget listOfItems() {
+  Widget listOfItems(double screenHeight, double screenWidth) {
     return Expanded(
       child: SizedBox(
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.itemList.listOfItems.length,
             itemBuilder: (BuildContext context, int index) {
-              return _listElement(index);
+              return _listElement(index, screenHeight, screenWidth);
             }),
       ),
     );
   }
 
-  Widget _listElement(int index) {
+  Widget _listElement(int index, double screenHeight, double screenWidth) {
+    double leftSideWidth = screenWidth * 0.7;
+    double imageWidth = leftSideWidth * 0.3;
+    double albumDetailsWidth = leftSideWidth * 0.7;
+    double rightSideWidth = screenWidth * 0.3;
+
     return Container(
-      child: Text("hello",
-          style: TextStyle(
-            color: Colors.black,
-          )),
+      padding: EdgeInsets.only(bottom: screenHeight * 0.02),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            // color: Colors.blue,
+            width: leftSideWidth,
+            height: screenHeight * 0.15,
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset(
+                    widget.itemList.listOfItems[index].item.coverArt,
+                    width: imageWidth,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                  // color: Colors.red,
+                  alignment: Alignment.centerLeft,
+                  width: albumDetailsWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: albumDetailsWidth * 0.9,
+                        // color: Colors.green,
+                        child: Text(
+                          widget.itemList.listOfItems[index].item.name,
+                          // "Album namekjhjvjvbjhgjn",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Manrope",
+                            fontWeight: FontWeight.normal,
+                            fontSize: albumDetailsWidth * 0.1,
+                          ),
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        // color: Colors.black,
+                        width: albumDetailsWidth * 0.9,
+                        child: Text(
+                          widget.itemList.listOfItems[index].item.band +
+                              " " +
+                              widget.itemList.listOfItems[index].item.year,
+                          // "Band year",
+                          style: TextStyle(
+                            color: Colors.white54,
+                            fontFamily: "Manrope",
+                            fontWeight: FontWeight.normal,
+                            fontSize: albumDetailsWidth * 0.08,
+                          ),
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            // color: Colors.amber,
+            width: rightSideWidth,
+            height: screenHeight * 0.15,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  // color: Colors.red,
+                  width: rightSideWidth,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          setState(() {
+                            widget.itemList.listOfItems[index].quantity--;
+                            if (widget.itemList.listOfItems[index].quantity ==
+                                0) {
+                              widget.itemList.listOfItems.removeAt(index);
+                            }
+                          });
+                        },
+                        icon: Icon(Icons.remove_circle_outline,
+                            color: Colors.white60),
+                      ),
+                      Text(
+                        widget.itemList.listOfItems[index].quantity.toString(),
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontFamily: "Manrope",
+                          fontWeight: FontWeight.normal,
+                          fontSize: rightSideWidth * 0.2,
+                        ),
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          setState(() {
+                            widget.itemList.listOfItems[index].quantity++;
+                          });
+                        },
+                        icon: Icon(Icons.add_circle_outline,
+                            color: Colors.white60),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  // color: Colors.green,
+                  width: rightSideWidth * 0.8,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "\$20",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Manrope",
+                      fontWeight: FontWeight.normal,
+                      fontSize: rightSideWidth * 0.2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

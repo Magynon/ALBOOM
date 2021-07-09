@@ -1,11 +1,11 @@
 TODO:
+- update faux db with album prices
 - cart responsiveness
-- cart list
-- make list of ordered items in CART page
 - read from json
 - snackbar
 
 DONE:
+- Cart list done
 - settings page
 - switching between page
 - responsiveness for HOME page
