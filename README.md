@@ -1,10 +1,10 @@
 TODO:
-- update faux db with album prices
 - cart responsiveness
 - read from json
 - snackbar
 
 DONE:
+- Cart simulated backend fully functional
 - Cart list done
 - settings page
 - switching between page

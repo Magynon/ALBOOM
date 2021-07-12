@@ -1,6 +1,5 @@
 import 'package:app/Objects/cartItem.dart';
 import 'package:flutter/material.dart';
-import 'package:slider_button/slider_button.dart';
 
 class CartScreen extends StatefulWidget {
   final ListOfCartItems itemList;
@@ -19,6 +18,7 @@ class _CartScreenState extends State<CartScreen> {
     for (int i = 0; i < widget.itemList.listOfItems.length; i++) {
       print(widget.itemList.listOfItems[i].item.name);
       print(widget.itemList.listOfItems[i].quantity);
+      print("total: " + widget.itemList.total.toString());
     }
 
     return Scaffold(
@@ -42,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
                 // color: Colors.white,
                 child: Column(
                   children: [
-                    listOfItems(screenHeight, screenWidth),
+                    _listOfItems(screenHeight, screenWidth),
                   ],
                 ),
               ),
@@ -51,7 +51,11 @@ class _CartScreenState extends State<CartScreen> {
               Container(
                 height: screenHeight * 0.2,
                 // color: Colors.blue,
-                child: totalPrice(screenHeight * 0.2, screenWidth),
+                child: TotalPrice(
+                  sectionHeight: screenHeight * 0.2,
+                  screenWidth: screenWidth,
+                  itemList: widget.itemList,
+                ),
               ),
 
               // buttons
@@ -73,14 +77,17 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget listOfItems(double screenHeight, double screenWidth) {
+  Widget _listOfItems(double screenHeight, double screenWidth) {
     return Expanded(
       child: SizedBox(
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.itemList.listOfItems.length,
             itemBuilder: (BuildContext context, int index) {
-              return _listElement(index, screenHeight, screenWidth);
+              return Padding(
+                padding: EdgeInsets.only(top: screenHeight * 0.02),
+                child: _listElement(index, screenHeight, screenWidth),
+              );
             }),
       ),
     );
@@ -178,11 +185,8 @@ class _CartScreenState extends State<CartScreen> {
                         padding: EdgeInsets.zero,
                         onPressed: () {
                           setState(() {
-                            widget.itemList.listOfItems[index].quantity--;
-                            if (widget.itemList.listOfItems[index].quantity ==
-                                0) {
-                              widget.itemList.listOfItems.removeAt(index);
-                            }
+                            widget.itemList.popItemFromList(
+                                widget.itemList.listOfItems[index]);
                           });
                         },
                         icon: Icon(Icons.remove_circle_outline,
@@ -201,7 +205,8 @@ class _CartScreenState extends State<CartScreen> {
                         padding: EdgeInsets.zero,
                         onPressed: () {
                           setState(() {
-                            widget.itemList.listOfItems[index].quantity++;
+                            widget.itemList.addItemToList(
+                                widget.itemList.listOfItems[index]);
                           });
                         },
                         icon: Icon(Icons.add_circle_outline,
@@ -215,7 +220,9 @@ class _CartScreenState extends State<CartScreen> {
                   width: rightSideWidth * 0.8,
                   alignment: Alignment.center,
                   child: Text(
-                    "\$20",
+                    "\$" +
+                        widget.itemList.listOfItems[index].item.price
+                            .toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Manrope",
@@ -266,7 +273,11 @@ class _CartScreenState extends State<CartScreen> {
           height: sectionHeight,
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () => widget.itemList.clearQueue(),
+            onPressed: () {
+              setState(() {
+                widget.itemList.clearQueue();
+              });
+            },
             child: Text(
               "Remove all",
               style: TextStyle(
@@ -277,84 +288,6 @@ class _CartScreenState extends State<CartScreen> {
               ),
               textAlign: TextAlign.right,
             ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget totalPrice(double sectionHeight, double screenWidth) {
-    int subtotal = 0;
-    int shippingFees = 0;
-    int total = 0;
-
-    TextStyle normalStyle = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.normal,
-      fontFamily: 'Manrope',
-      fontSize: sectionHeight * 0.1,
-    );
-    TextStyle boldStyle = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w800,
-      fontFamily: 'Manrope',
-      fontSize: sectionHeight * 0.1,
-    );
-
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: sectionHeight * 0.3,
-          ),
-          child: Divider(color: Colors.white30),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: sectionHeight * 0.03),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Subtotal",
-                style: normalStyle,
-              ),
-              Text(
-                "\$" + subtotal.toString(),
-                style: normalStyle,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: sectionHeight * 0.03),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Shipping fees",
-                style: normalStyle,
-              ),
-              Text(
-                "\$" + shippingFees.toString(),
-                style: normalStyle,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: sectionHeight * 0.03),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Total (including tax)",
-                style: boldStyle,
-              ),
-              Text(
-                "\$" + total.toString(),
-                style: boldStyle,
-              ),
-            ],
           ),
         ),
       ],
@@ -425,6 +358,96 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TotalPrice extends StatefulWidget {
+  double sectionHeight, screenWidth;
+  final ListOfCartItems itemList;
+  TotalPrice({
+    Key? key,
+    required this.sectionHeight,
+    required this.screenWidth,
+    required this.itemList,
+  }) : super(key: key);
+
+  @override
+  _TotalPriceState createState() => _TotalPriceState();
+}
+
+class _TotalPriceState extends State<TotalPrice> {
+  @override
+  Widget build(BuildContext context) {
+    TextStyle normalStyle = TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+      fontFamily: 'Manrope',
+      fontSize: widget.sectionHeight * 0.1,
+    );
+    TextStyle boldStyle = TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.w800,
+      fontFamily: 'Manrope',
+      fontSize: widget.sectionHeight * 0.1,
+    );
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: widget.sectionHeight * 0.3,
+          ),
+          child: Divider(color: Colors.white30),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Subtotal",
+                style: normalStyle,
+              ),
+              Text(
+                "\$" + widget.itemList.subTotal.toString(),
+                style: normalStyle,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Shipping fees",
+                style: normalStyle,
+              ),
+              Text(
+                "\$" + widget.itemList.shippingFees.toString(),
+                style: normalStyle,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Total (including tax)",
+                style: boldStyle,
+              ),
+              Text(
+                "\$" + widget.itemList.total.toString(),
+                style: boldStyle,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
 import 'package:app/screens/buyAlbum_landscape.dart';
@@ -63,9 +65,14 @@ class _AlbumListState extends State<AlbumList> {
 
   @override
   Widget build(BuildContext context) {
+    Random rnd;
+    int min = 5, max = 50, r;
+
     for (int i = 0; i < numberOfAlbums; i++) {
+      rnd = new Random();
+      r = min + rnd.nextInt(max - min);
       var album = Album(albums[i], bands[i], thumbnails[i], false, urls[i],
-          years[i], labels[i]);
+          years[i], labels[i], r);
       albumList.addAlbumToList(album);
     }
 

@@ -1,9 +1,10 @@
 class Album {
   late String name, band, coverArt, url, year, label;
+  late int price;
   late bool like;
 
   Album(this.name, this.band, this.coverArt, this.like, this.url, this.year,
-      this.label);
+      this.label, this.price);
 
   likeAlbum() {
     this.like = true;
