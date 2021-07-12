@@ -1,5 +1,5 @@
 TODO:
-- cart responsiveness
+- cart responsiveness / disable landscape on this screen
 - read from json
 - snackbar
 
