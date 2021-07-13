@@ -1,5 +1,15 @@
 import 'package:app/Objects/cartItem.dart';
+import 'package:app/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+void checkoutDialog(BuildContext context, ListOfCartItems itemList) {
+  WidgetsBinding.instance!.addPostFrameCallback((_) => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CheckoutDialog(itemList: itemList)),
+      ));
+}
 
 class CartScreen extends StatefulWidget {
   final ListOfCartItems itemList;
@@ -11,8 +21,26 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height - 70 - 80;
+    double screenHeight = MediaQuery.of(context).size.height - 70 - 60;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
 
     for (int i = 0; i < widget.itemList.listOfItems.length; i++) {
@@ -32,6 +60,7 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               // subtitle
               Container(
+                // color: Colors.yellow,
                 height: screenHeight * 0.08,
                 child: subtitle(screenHeight * 0.08, screenWidth),
               ),
@@ -49,10 +78,10 @@ class _CartScreenState extends State<CartScreen> {
 
               // final price
               Container(
-                height: screenHeight * 0.2,
+                height: screenHeight * 0.17,
                 // color: Colors.blue,
                 child: TotalPrice(
-                  sectionHeight: screenHeight * 0.2,
+                  sectionHeight: screenHeight * 0.17,
                   screenWidth: screenWidth,
                   itemList: widget.itemList,
                 ),
@@ -60,15 +89,10 @@ class _CartScreenState extends State<CartScreen> {
 
               // buttons
               Container(
-                height: screenHeight * 0.1,
+                height: screenHeight * 0.13,
                 // color: Colors.pink,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    cancelButton(screenHeight * 0.1, screenWidth),
-                    paymentButton(screenHeight * 0.1, screenWidth),
-                  ],
-                ),
+                child: Center(
+                    child: paymentButton(screenHeight * 0.1, screenWidth)),
               ),
             ],
           ),
@@ -179,9 +203,10 @@ class _CartScreenState extends State<CartScreen> {
                   width: rightSideWidth,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
+                        iconSize: rightSideWidth * 0.2,
                         padding: EdgeInsets.zero,
                         onPressed: () {
                           setState(() {
@@ -203,6 +228,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       IconButton(
                         padding: EdgeInsets.zero,
+                        iconSize: rightSideWidth * 0.2,
                         onPressed: () {
                           setState(() {
                             widget.itemList.addItemToList(
@@ -248,12 +274,15 @@ class _CartScreenState extends State<CartScreen> {
           height: sectionHeight,
           width: screenWidth * 0.5,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-                size: screenWidth * 0.08,
+              Padding(
+                padding: EdgeInsets.only(right: screenWidth * 0.02),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                  size: sectionHeight * 0.5,
+                ),
               ),
               Text(
                 "Order summary",
@@ -261,7 +290,7 @@ class _CartScreenState extends State<CartScreen> {
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
                   fontFamily: 'Manrope',
-                  fontSize: screenWidth * 0.045,
+                  fontSize: sectionHeight * 0.3,
                 ),
               ),
             ],
@@ -273,6 +302,14 @@ class _CartScreenState extends State<CartScreen> {
           height: sectionHeight,
           alignment: Alignment.centerRight,
           child: TextButton(
+            style: ButtonStyle(
+              overlayColor: widget.itemList.listOfItems.isEmpty
+                  ? MaterialStateColor.resolveWith(
+                      (states) => Colors.transparent)
+                  : MaterialStateColor.resolveWith(
+                      (states) => Colors.grey[800]!,
+                    ),
+            ),
             onPressed: () {
               setState(() {
                 widget.itemList.clearQueue();
@@ -281,10 +318,12 @@ class _CartScreenState extends State<CartScreen> {
             child: Text(
               "Remove all",
               style: TextStyle(
-                color: Colors.white,
+                color: widget.itemList.listOfItems.isEmpty
+                    ? Colors.grey[700]
+                    : Colors.white,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'Manrope',
-                fontSize: screenWidth * 0.04,
+                fontSize: sectionHeight * 0.4,
               ),
               textAlign: TextAlign.right,
             ),
@@ -307,7 +346,7 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: MaterialStateColor.resolveWith(
               (states) => Colors.lightGreenAccent[400]!),
         ),
-        onPressed: () => {},
+        onPressed: () => checkoutDialog(context, widget.itemList),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
           child: Text(
@@ -323,47 +362,10 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
-  Widget cancelButton(double sectionHeight, double screenWidth) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      height: sectionHeight * 0.7,
-      child: TextButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ),
-          backgroundColor: MaterialStateColor.resolveWith(
-              (states) => Theme.of(context).primaryColor),
-        ),
-        onPressed: () => {},
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
-          child: Text(
-            'Cancel',
-            style: TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'Manrope',
-              // fontSize: 20,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class TotalPrice extends StatefulWidget {
-  double sectionHeight, screenWidth;
+  final double sectionHeight, screenWidth;
   final ListOfCartItems itemList;
   TotalPrice({
     Key? key,
@@ -391,49 +393,49 @@ class _TotalPriceState extends State<TotalPrice> {
       fontFamily: 'Manrope',
       fontSize: widget.sectionHeight * 0.1,
     );
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: widget.sectionHeight * 0.3,
+    return Container(
+      // color: Colors.yellow,
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: widget.sectionHeight * 0.27,
+            ),
+            child: Divider(color: Colors.white30),
           ),
-          child: Divider(color: Colors.white30),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Subtotal",
-                style: normalStyle,
-              ),
-              Text(
-                "\$" + widget.itemList.subTotal.toString(),
-                style: normalStyle,
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Subtotal",
+                  style: normalStyle,
+                ),
+                Text(
+                  "\$" + widget.itemList.subTotal.toString(),
+                  style: normalStyle,
+                ),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Shipping fees",
-                style: normalStyle,
-              ),
-              Text(
-                "\$" + widget.itemList.shippingFees.toString(),
-                style: normalStyle,
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Shipping fees",
+                  style: normalStyle,
+                ),
+                Text(
+                  "\$" + widget.itemList.shippingFees.toString(),
+                  style: normalStyle,
+                ),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: widget.sectionHeight * 0.03),
-          child: Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -446,8 +448,8 @@ class _TotalPriceState extends State<TotalPrice> {
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -97,7 +97,6 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
 
     double albumArtHeight = localHeight * 0.35;
     double albumDetailsHeight = localHeight * 0.2;
-    double buttonsHeight = localHeight * 0.15;
 
     return Wrap(
       direction: Axis.horizontal,
@@ -108,15 +107,18 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: screenWidth * 0.33,
-                height: localHeight * 0.8,
-                alignment: Alignment.centerRight,
-                // color: Colors.blueGrey,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset(
-                    widget.albumObj.coverArt,
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.03),
+                child: Container(
+                  width: screenWidth * 0.3,
+                  height: localHeight * 0.8,
+                  alignment: Alignment.centerRight,
+                  // color: Colors.blueGrey,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.asset(
+                      widget.albumObj.coverArt,
+                    ),
                   ),
                 ),
               ),

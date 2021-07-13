@@ -1,10 +1,10 @@
 **TODO:**
 
+- see about form height responsiveness
+- form vaidation
+- clear list of orders after ordering
 - cart responsiveness / disable landscape on this screen
-- payment info dialog
-- delete Cancel button from CART page
 - work on changing theme option
-- change icon color in settings screen
 - read from json
 - snackbar
 - firestore backend

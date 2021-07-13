@@ -1,5 +1,25 @@
-import 'package:app/actions/settingsActions.dart';
 import 'package:flutter/material.dart';
+import 'creditsScreen.dart';
+
+executeCommand(BuildContext context, String command) {
+  switch (command) {
+    case 'themeChange':
+      themeChange(context);
+      break;
+    case 'creditsDialog':
+      creditsDialog(context);
+      break;
+  }
+}
+
+themeChange(BuildContext context) {}
+
+creditsDialog(BuildContext context) {
+  WidgetsBinding.instance!.addPostFrameCallback((_) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Credits()),
+      ));
+}
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -100,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Icon(
                   iconOptions.elementAt(index),
-                  color: Colors.greenAccent[100],
+                  color: Colors.pink,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: screenWidth * 0.03),
