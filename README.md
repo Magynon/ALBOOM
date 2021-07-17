@@ -1,7 +1,5 @@
 **TODO:**
 
-- form vaidation
-- to check: cart responsiveness / disable landscape on this screen
 - work on changing theme option
 - read from json
 - snackbar
