@@ -5,6 +5,7 @@ import 'package:app/components/topBarSettings.dart';
 import 'package:app/screens/cart_screen.dart';
 import 'package:app/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_screen.dart';
 
@@ -28,8 +29,10 @@ class _CurrentScreenState extends State<CurrentScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      HomeScreen(itemList: itemList),
-      CartScreen(itemList: itemList),
+      ChangeNotifierProvider<ListOfCartItems>(
+          create: (context) => ListOfCartItems(), child: HomeScreen()),
+      ChangeNotifierProvider<ListOfCartItems>(
+          create: (context) => ListOfCartItems(), child: CartScreen()),
       SettingsScreen(),
     ];
 

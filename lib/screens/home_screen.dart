@@ -3,10 +3,10 @@ import 'package:app/Objects/cartItem.dart';
 import 'package:app/database/AlbumList.dart';
 import 'package:app/database/LatestNews.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final ListOfCartItems itemList;
-  HomeScreen({Key? key, required this.itemList}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Scaffold(
       //
       body: Stack(
@@ -50,9 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       // album list
-                      AlbumList(
-                        itemList: widget.itemList,
-                      ),
+                      AlbumList(),
                     ],
                   ),
                 ],

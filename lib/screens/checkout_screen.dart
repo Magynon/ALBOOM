@@ -123,27 +123,34 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
         Padding(
           padding: EdgeInsets.only(
             top: sectionHeight * 0.02,
-            bottom: sectionHeight * 0.05,
+            bottom: sectionHeight * 0.03,
           ),
           child: TextField(
             controller: holderName,
+            textAlignVertical: TextAlignVertical.top,
             style: TextStyle(
               color: Colors.white,
             ),
             decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                left: 20,
+                top: sectionHeight * 0.03,
+                bottom: sectionHeight * 0.06,
+              ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 3.0),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               hintText: 'Full name',
               hintStyle: TextStyle(
                 color: Colors.grey[800],
+                fontSize: sectionHeight * 0.03,
               ),
-              contentPadding: EdgeInsets.only(left: 20.0),
             ),
           ),
         ),
@@ -154,27 +161,34 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
         Padding(
           padding: EdgeInsets.only(
             top: sectionHeight * 0.02,
-            bottom: sectionHeight * 0.05,
+            bottom: sectionHeight * 0.03,
           ),
           child: TextField(
             controller: cardNumber,
+            textAlignVertical: TextAlignVertical.top,
             style: TextStyle(
               color: Colors.white,
             ),
             decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                left: 20,
+                top: sectionHeight * 0.03,
+                bottom: sectionHeight * 0.06,
+              ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 3.0),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               hintText: 'Card number',
               hintStyle: TextStyle(
                 color: Colors.grey[800],
+                fontSize: sectionHeight * 0.03,
               ),
-              contentPadding: EdgeInsets.only(left: 20.0),
             ),
           ),
         ),
@@ -185,27 +199,34 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
         Padding(
           padding: EdgeInsets.only(
             top: sectionHeight * 0.02,
-            bottom: sectionHeight * 0.05,
+            bottom: sectionHeight * 0.03,
           ),
           child: TextField(
+            textAlignVertical: TextAlignVertical.top,
             controller: expirationDate,
             style: TextStyle(
               color: Colors.white,
             ),
             decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                left: 20,
+                top: sectionHeight * 0.03,
+                bottom: sectionHeight * 0.06,
+              ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 3.0),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               hintText: 'MM/YY',
               hintStyle: TextStyle(
                 color: Colors.grey[800],
+                fontSize: sectionHeight * 0.03,
               ),
-              contentPadding: EdgeInsets.only(left: 20.0),
             ),
           ),
         ),
@@ -224,20 +245,25 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
               color: Colors.white,
             ),
             decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                left: 20,
+                top: sectionHeight * 0.03,
+                bottom: sectionHeight * 0.24,
+              ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
+                borderSide: BorderSide(color: Colors.white, width: 1.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 3.0),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(30),
               ),
               hintText: 'Full address',
               hintStyle: TextStyle(
                 color: Colors.grey[800],
+                fontSize: sectionHeight * 0.03,
               ),
-              contentPadding: EdgeInsets.only(
-                  top: 14, left: 20.0, bottom: sectionHeight * 0.27 - 14),
             ),
           ),
         ),
@@ -302,6 +328,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
           setState(() {
             widget.itemList.clearQueue();
           });
+
           Navigator.pop(context);
         },
         child: Padding(

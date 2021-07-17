@@ -2,6 +2,7 @@ import 'package:app/Objects/cartItem.dart';
 import 'package:app/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void checkoutDialog(BuildContext context, ListOfCartItems itemList) {
   WidgetsBinding.instance!.addPostFrameCallback((_) => Navigator.push(
@@ -12,8 +13,7 @@ void checkoutDialog(BuildContext context, ListOfCartItems itemList) {
 }
 
 class CartScreen extends StatefulWidget {
-  final ListOfCartItems itemList;
-  CartScreen({Key? key, required this.itemList}) : super(key: key);
+  CartScreen({Key? key}) : super(key: key);
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -42,11 +42,11 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height - 70 - 60;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
-
-    for (int i = 0; i < widget.itemList.listOfItems.length; i++) {
-      print(widget.itemList.listOfItems[i].item.name);
-      print(widget.itemList.listOfItems[i].quantity);
-      print("total: " + widget.itemList.total.toString());
+    final itemList = Provider.of<ListOfCartItems>(context);
+    for (int i = 0; i < itemList.listOfItems.length; i++) {
+      print(itemList.listOfItems[i].item.name);
+      print(itemList.listOfItems[i].quantity);
+      print("total: " + itemList.total.toString());
     }
 
     return Scaffold(
@@ -83,7 +83,6 @@ class _CartScreenState extends State<CartScreen> {
                 child: TotalPrice(
                   sectionHeight: screenHeight * 0.17,
                   screenWidth: screenWidth,
-                  itemList: widget.itemList,
                 ),
               ),
 
@@ -102,11 +101,12 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _listOfItems(double screenHeight, double screenWidth) {
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Expanded(
       child: SizedBox(
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: widget.itemList.listOfItems.length,
+            itemCount: itemList.listOfItems.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.02),
@@ -123,6 +123,7 @@ class _CartScreenState extends State<CartScreen> {
     double albumDetailsWidth = leftSideWidth * 0.7;
     double rightSideWidth = screenWidth * 0.3;
 
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Container(
       padding: EdgeInsets.only(bottom: screenHeight * 0.02),
       child: Row(
@@ -136,7 +137,7 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 Container(
                   child: Image.asset(
-                    widget.itemList.listOfItems[index].item.coverArt,
+                    itemList.listOfItems[index].item.coverArt,
                     width: imageWidth,
                   ),
                 ),
@@ -153,7 +154,7 @@ class _CartScreenState extends State<CartScreen> {
                         width: albumDetailsWidth * 0.9,
                         // color: Colors.green,
                         child: Text(
-                          widget.itemList.listOfItems[index].item.name,
+                          itemList.listOfItems[index].item.name,
                           // "Album namekjhjvjvbjhgjn",
                           style: TextStyle(
                             color: Colors.white,
@@ -169,9 +170,9 @@ class _CartScreenState extends State<CartScreen> {
                         // color: Colors.black,
                         width: albumDetailsWidth * 0.9,
                         child: Text(
-                          widget.itemList.listOfItems[index].item.band +
+                          itemList.listOfItems[index].item.band +
                               " " +
-                              widget.itemList.listOfItems[index].item.year,
+                              itemList.listOfItems[index].item.year,
                           // "Band year",
                           style: TextStyle(
                             color: Colors.white54,
@@ -210,15 +211,15 @@ class _CartScreenState extends State<CartScreen> {
                         padding: EdgeInsets.zero,
                         onPressed: () {
                           setState(() {
-                            widget.itemList.popItemFromList(
-                                widget.itemList.listOfItems[index]);
+                            itemList
+                                .popItemFromList(itemList.listOfItems[index]);
                           });
                         },
                         icon: Icon(Icons.remove_circle_outline,
                             color: Colors.white60),
                       ),
                       Text(
-                        widget.itemList.listOfItems[index].quantity.toString(),
+                        itemList.listOfItems[index].quantity.toString(),
                         style: TextStyle(
                           color: Colors.white54,
                           fontFamily: "Manrope",
@@ -231,8 +232,7 @@ class _CartScreenState extends State<CartScreen> {
                         iconSize: rightSideWidth * 0.2,
                         onPressed: () {
                           setState(() {
-                            widget.itemList.addItemToList(
-                                widget.itemList.listOfItems[index]);
+                            itemList.addItemToList(itemList.listOfItems[index]);
                           });
                         },
                         icon: Icon(Icons.add_circle_outline,
@@ -246,9 +246,7 @@ class _CartScreenState extends State<CartScreen> {
                   width: rightSideWidth * 0.8,
                   alignment: Alignment.center,
                   child: Text(
-                    "\$" +
-                        widget.itemList.listOfItems[index].item.price
-                            .toString(),
+                    "\$" + itemList.listOfItems[index].item.price.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Manrope",
@@ -266,6 +264,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget subtitle(double sectionHeight, double screenWidth) {
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -303,7 +302,7 @@ class _CartScreenState extends State<CartScreen> {
           alignment: Alignment.centerRight,
           child: TextButton(
             style: ButtonStyle(
-              overlayColor: widget.itemList.listOfItems.isEmpty
+              overlayColor: itemList.listOfItems.isEmpty
                   ? MaterialStateColor.resolveWith(
                       (states) => Colors.transparent)
                   : MaterialStateColor.resolveWith(
@@ -312,13 +311,13 @@ class _CartScreenState extends State<CartScreen> {
             ),
             onPressed: () {
               setState(() {
-                widget.itemList.clearQueue();
+                itemList.clearQueue();
               });
             },
             child: Text(
               "Remove all",
               style: TextStyle(
-                color: widget.itemList.listOfItems.isEmpty
+                color: itemList.listOfItems.isEmpty
                     ? Colors.grey[700]
                     : Colors.white,
                 fontWeight: FontWeight.normal,
@@ -334,6 +333,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget paymentButton(double sectionHeight, double screenWidth) {
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Container(
       height: sectionHeight * 0.7,
       child: TextButton(
@@ -346,7 +346,7 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: MaterialStateColor.resolveWith(
               (states) => Colors.lightGreenAccent[400]!),
         ),
-        onPressed: () => checkoutDialog(context, widget.itemList),
+        onPressed: () => checkoutDialog(context, itemList),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
           child: Text(
@@ -366,12 +366,10 @@ class _CartScreenState extends State<CartScreen> {
 
 class TotalPrice extends StatefulWidget {
   final double sectionHeight, screenWidth;
-  final ListOfCartItems itemList;
   TotalPrice({
     Key? key,
     required this.sectionHeight,
     required this.screenWidth,
-    required this.itemList,
   }) : super(key: key);
 
   @override
@@ -393,6 +391,7 @@ class _TotalPriceState extends State<TotalPrice> {
       fontFamily: 'Manrope',
       fontSize: widget.sectionHeight * 0.1,
     );
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Container(
       // color: Colors.yellow,
       child: Column(
@@ -413,7 +412,7 @@ class _TotalPriceState extends State<TotalPrice> {
                   style: normalStyle,
                 ),
                 Text(
-                  "\$" + widget.itemList.subTotal.toString(),
+                  "\$" + itemList.subTotal.toString(),
                   style: normalStyle,
                 ),
               ],
@@ -429,7 +428,7 @@ class _TotalPriceState extends State<TotalPrice> {
                   style: normalStyle,
                 ),
                 Text(
-                  "\$" + widget.itemList.shippingFees.toString(),
+                  "\$" + itemList.shippingFees.toString(),
                   style: normalStyle,
                 ),
               ],
@@ -443,7 +442,7 @@ class _TotalPriceState extends State<TotalPrice> {
                 style: boldStyle,
               ),
               Text(
-                "\$" + widget.itemList.total.toString(),
+                "\$" + itemList.total.toString(),
                 style: boldStyle,
               ),
             ],

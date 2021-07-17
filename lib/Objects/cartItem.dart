@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
+
 import 'album.dart';
 
 class CartItem {
@@ -9,7 +11,7 @@ class CartItem {
   CartItem(this.item, this.quantity);
 }
 
-class ListOfCartItems {
+class ListOfCartItems with ChangeNotifier {
   late List<CartItem> listOfItems;
   int subTotal = 0, shippingFees = 0, total = 0;
 
@@ -21,6 +23,7 @@ class ListOfCartItems {
 
     total = shippingFees;
     subTotal = 0;
+    notifyListeners();
   }
 
   addItemToList(CartItem item) {
@@ -32,6 +35,8 @@ class ListOfCartItems {
         // update final prices
         subTotal += item.item.price;
         total += item.item.price;
+        notifyListeners();
+
         return;
       }
     }
@@ -39,6 +44,7 @@ class ListOfCartItems {
     listOfItems.add(item);
     subTotal += item.item.price;
     total += item.item.price;
+    notifyListeners();
   }
 
   popItemFromList(CartItem item) {
@@ -54,6 +60,8 @@ class ListOfCartItems {
         // update final prices
         subTotal -= item.item.price;
         total -= item.item.price;
+        notifyListeners();
+
         return;
       }
     }
@@ -66,5 +74,6 @@ class ListOfCartItems {
     }
     total = shippingFees;
     subTotal = 0;
+    notifyListeners();
   }
 }

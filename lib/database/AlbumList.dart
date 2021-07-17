@@ -5,10 +5,10 @@ import 'package:app/Objects/cartItem.dart';
 import 'package:app/screens/buyAlbum_landscape.dart';
 import 'package:app/screens/buyAlbum_portrait.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AlbumList extends StatefulWidget {
-  final ListOfCartItems itemList;
-  const AlbumList({Key? key, required this.itemList}) : super(key: key);
+  const AlbumList({Key? key}) : super(key: key);
 
   @override
   _AlbumListState createState() => _AlbumListState();
@@ -91,7 +91,7 @@ class _AlbumListState extends State<AlbumList> {
               ),
               child: Column(
                 children: [
-                  _albumArt(albumList, index),
+                  _albumArt(index),
                   Container(
                     width: 150,
                     child: _likeArea(albumList, index),
@@ -105,7 +105,9 @@ class _AlbumListState extends State<AlbumList> {
     );
   }
 
-  Widget _albumArt(ListOfAlbums albumList, int index) {
+  Widget _albumArt(int index) {
+    final itemList = Provider.of<ListOfCartItems>(context);
+
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -116,12 +118,12 @@ class _AlbumListState extends State<AlbumList> {
                 if (orientation == Orientation.portrait)
                   return BuyScreenPortrait(
                     albumObj: albumList.listOfAlbums.elementAt(index),
-                    itemList: widget.itemList,
+                    itemList: itemList,
                   );
                 else
                   return BuyScreenLandscape(
                     albumObj: albumList.listOfAlbums.elementAt(index),
-                    itemList: widget.itemList,
+                    itemList: itemList,
                   );
               },
             );
