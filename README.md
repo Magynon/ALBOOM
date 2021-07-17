@@ -11,6 +11,9 @@
 ## ALBOOM - Listen and buy your favorite records!
 
 <br>
+
+![Screens](https://github.com/Magynon/ALBOOM/blob/main/doc/presentation.jpg?raw=true)
+
 This is an app designed to let the user listen to online previews of the albums it is selling and read the latest news in the music world.
 <br><br>
 
