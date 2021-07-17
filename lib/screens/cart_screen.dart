@@ -40,7 +40,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height - 70 - 60;
+    double screenHeight = MediaQuery.of(context).size.height - 70 - 80;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
     final itemList = Provider.of<ListOfCartItems>(context);
     for (int i = 0; i < itemList.listOfItems.length; i++) {
@@ -338,15 +338,28 @@ class _CartScreenState extends State<CartScreen> {
       height: sectionHeight * 0.7,
       child: TextButton(
         style: ButtonStyle(
+          overlayColor: itemList.listOfItems.isEmpty
+              ? MaterialStateColor.resolveWith((states) => Colors.transparent)
+              : MaterialStateColor.resolveWith(
+                  (states) => Colors.lightGreenAccent[400]!),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-          backgroundColor: MaterialStateColor.resolveWith(
-              (states) => Colors.lightGreenAccent[400]!),
+          backgroundColor: itemList.listOfItems.isEmpty
+              ? MaterialStateColor.resolveWith((states) => Colors.grey[800]!)
+              : MaterialStateColor.resolveWith(
+                  (states) => Colors.lightGreenAccent[400]!),
         ),
-        onPressed: () => checkoutDialog(context, itemList),
+        onPressed: () => {
+          if (itemList.listOfItems.isEmpty)
+            {
+              print("EMPTY"),
+            }
+          else
+            {checkoutDialog(context, itemList)},
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
           child: Text(
@@ -355,7 +368,6 @@ class _CartScreenState extends State<CartScreen> {
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w800,
               fontFamily: 'Manrope',
-              // fontSize: 20,
             ),
           ),
         ),

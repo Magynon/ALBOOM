@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Icon(
                   iconOptions.elementAt(index),
-                  color: Colors.pink,
+                  color: Colors.pinkAccent[400],
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: screenWidth * 0.03),

@@ -52,6 +52,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(
@@ -81,7 +82,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
 
                 // buttons
                 Container(
-                  height: screenHeight * 0.1,
+                  height: screenHeight * 0.07,
                   // color: Colors.pink,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +137,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
               contentPadding: EdgeInsets.only(
                 left: 20,
                 top: sectionHeight * 0.03,
-                bottom: sectionHeight * 0.06,
+                bottom: sectionHeight * 0.03,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 1.0),
@@ -174,7 +175,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
               contentPadding: EdgeInsets.only(
                 left: 20,
                 top: sectionHeight * 0.03,
-                bottom: sectionHeight * 0.06,
+                bottom: sectionHeight * 0.03,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 1.0),
@@ -212,7 +213,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
               contentPadding: EdgeInsets.only(
                 left: 20,
                 top: sectionHeight * 0.03,
-                bottom: sectionHeight * 0.06,
+                bottom: sectionHeight * 0.03,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 1.0),
@@ -321,15 +322,28 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
               (states) => Colors.lightGreenAccent[400]!),
         ),
         onPressed: () {
+          if (expirationDate.text.length != 5 ||
+              holderName.text.length == 0 ||
+              cardNumber.text.length == 0 ||
+              fullAddress.text.length == 0) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Wrong input data')));
+          } else {
+            if (expirationDate.text[2] != '/') {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Wrong date')));
+            } else {
+              setState(() {
+                widget.itemList.clearQueue();
+              });
+              Navigator.pop(context);
+            }
+          }
+
           print("Name: " + holderName.text);
           print("Card: " + cardNumber.text);
           print("Date: " + expirationDate.text);
           print("Address: " + fullAddress.text);
-          setState(() {
-            widget.itemList.clearQueue();
-          });
-
-          Navigator.pop(context);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
