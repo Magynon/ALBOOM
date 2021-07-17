@@ -1,9 +1,7 @@
 **TODO:**
 
-- see about form height responsiveness
 - form vaidation
-- clear list of orders after ordering
-- cart responsiveness / disable landscape on this screen
+- to check: cart responsiveness / disable landscape on this screen
 - work on changing theme option
 - read from json
 - snackbar
