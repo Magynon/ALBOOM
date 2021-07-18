@@ -1,0 +1,116 @@
+{
+    "news":
+    [
+        {
+            "thumbnail": "assets/images/news/1.jpeg",
+            "url": "https://www.youtube.com/watch?v=Z2QCORi-u0U",
+            "headline": "Guns N' Roses on starting tour in 2022 in North America"
+        },
+        {
+            "thumbnail": "assets/images/news/2.jpg",
+            "url": "https://www.youtube.com/watch?v=F74Tw99qfRg",
+            "headline": "Swedish guitarist Yngwie Malmsteen on how he met Leo Fender"
+        },
+        {
+            "thumbnail": "assets/images/news/3.jpg",
+            "url": "https://www.youtube.com/watch?v=F89-MOy7Xfg",
+            "headline": "Ozzy Osbourne confessing to being sober for over 20 days"
+        },
+        {
+            "thumbnail": "assets/images/news/4.jpg",
+            "url": "https://www.youtube.com/watch?v=boMOhT--utg",
+            "headline": "Def Leppard unite forces with guitarist Vivian Campbell"
+        }
+    ],
+    "albums":
+    [
+        {
+            "name": "Trilogy",
+            "band": "@yngwiemalmsteen",
+            "year": "1986",
+            "label": "Polydor Records",
+            "thumbnail": "assets/images/albums/1.jpg",
+            "url": "https://www.youtube.com/watch?v=lOB0TNEBRhA&list=OLAK5uy_lKN3JZIWeYsHYBAZq5lq9ai0yUsoKiYQY"
+        },
+        {
+            "name": "Appetite For Destruction",
+            "band": "@guns'n'roses",
+            "year": "1987",
+            "label": "Geffen Records",
+            "thumbnail": "assets/images/albums/2.jpeg",
+            "url": "https://www.youtube.com/watch?v=o1tj2zJ2Wvg&list=OLAK5uy_n13hmdsIozcCRyaY4cRDuuviphpfbzPrw"
+        },
+        {
+            "name": "Van Halen I",
+            "band": "@vanhalen",
+            "year": "1978",
+            "label": "Burbank Records",
+            "thumbnail": "assets/images/albums/3.jpg",
+            "url": "https://www.youtube.com/watch?v=KLRO4W9pNrQ&list=PLP_vXshlStIdUFp9pJ7qffQS8TbwmqVkL"
+        },
+        {
+            "name": "Road Games",
+            "band": "@allanholdsworth",
+            "year": "1983",
+            "label": "Warner Bros. Records",
+            "thumbnail": "assets/images/albums/4.jpg",
+            "url": "https://www.youtube.com/watch?v=FqizaAJ-rN0"
+        },
+        {
+            "name": "1987",
+            "band": "@whitesnake",
+            "year": "1987",
+            "label": "EMI Records",
+            "thumbnail": "assets/images/albums/5.jpg",
+            "url": "https://www.youtube.com/watch?v=jaEzfy_gHkM&list=PLgLk-j8sdm7avB5pRF59hgM6bfHxs2Xz_"
+        },
+        {
+            "name": "Wings Of Tomorrow",
+            "band": "@europe",
+            "year": "1984",
+            "label": "Hot Records",
+            "thumbnail": "assets/images/albums/6.jpg",
+            "url": "https://www.youtube.com/watch?v=Mcv05PbZ5tA"
+        },
+        {
+            "name": "Back For The Attack",
+            "band": "@dokken",
+            "year": "1987",
+            "label": "Elektra Records",
+            "thumbnail": "assets/images/albums/7.jpg",
+            "url": "https://www.youtube.com/watch?v=3oZG-KQ4D_Y"
+        },
+        {
+            "name": "Underworld",
+            "band": "@symphonyx",
+            "year": "2015",
+            "label": "Nuclear Blast",
+            "thumbnail": "assets/images/albums/8.jpg",
+            "url": "https://www.youtube.com/watch?v=z6hx30ZIIs8&list=PLHTo__bpnlYWY1D6YhoDaQbBVkut0nPWI"
+        },
+        {
+            "name": "Thriller",
+            "band": "@michaeljackson",
+            "year": "1982",
+            "label": "Epic Records",
+            "thumbnail": "assets/images/albums/9.jpg",
+            "url": "https://www.youtube.com/watch?v=1XMvPTFzgVU"
+        },
+        {
+            "name": "The Ultimate Sin",
+            "band": "@ozzyosbourne",
+            "year": "1986",
+            "label": "Epic Records",
+            "thumbnail": "assets/images/albums/10.jpg",
+            "url": "https://www.youtube.com/watch?v=O_ypaOIVmaA&list=OLAK5uy_mILHxnItp26NwCsnd3R_afl3xV4fJ-XwM"
+        },
+        {
+            "name": "",
+            "band": "",
+            "year": "",
+            "label": "",
+            "thumbnail": "assets/images/albums/.jpg",
+            "url": ""
+        }
+    ]
+}

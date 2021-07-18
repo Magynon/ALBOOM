@@ -2,7 +2,8 @@
 
 - work on changing theme option
 - read from json
-- snackbar
+- search screen
+- login, register screens
 - firestore backend
 - add photos to README
 
