@@ -1,11 +1,10 @@
 **TODO:**
 
+- signin screen to home
 - work on changing theme option
 - read from json
-- search screen
-- login, register screens
-- firestore backend
-- add photos to README
+- search screens
+- tie login screen to firebase
 
 # Ștefan MĂGIRESCU
 
