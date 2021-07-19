@@ -105,6 +105,86 @@
             "url": "https://www.youtube.com/watch?v=O_ypaOIVmaA&list=OLAK5uy_mILHxnItp26NwCsnd3R_afl3xV4fJ-XwM"
         },
         {
+            "name": "My Beautiful Dark Twisted Fantasy",
+            "band": "@kanyewest",
+            "year": "2010",
+            "label": "Def Jam",
+            "thumbnail": "assets/images/albums/11.jpg",
+            "url": "https://youtube.com/playlist?list=PL8YH4mOwWryUMna911yJM2B52iIIzigKy"
+        },
+        {
+            "name": "Blonde",
+            "band": "@frankocean",
+            "year": "2016",
+            "label": "Boys Don't Cry",
+            "thumbnail": "assets/images/albums/12.jpg",
+            "url": "https://youtube.com/playlist?list=PLzoqV_VvWIwGzYTcm3r1JwqgQOBXTvKyd"
+        },
+        {
+            "name": "Pony",
+            "band": "@rexorangecounty",
+            "year": "2019",
+            "label": "RCA",
+            "thumbnail": "assets/images/albums/13.jpg",
+            "url": "https://youtube.com/playlist?list=PLprWPkGKlj_S0hjAov9yE4iz0k-f5zG1a"
+        },
+        {
+            "name": "Igor",
+            "band": "@tylerthecreator",
+            "year": "2019",
+            "label": "Columbia",
+            "thumbnail": "assets/images/albums/14.jpg",
+            "url": "https://youtube.com/playlist?list=PLRwfuN7siOr7p044Iw_7jfEhGPgfVdST-"
+        },
+        {
+            "name": "Good Kid, M.A.A.D City",
+            "band": "@kendricklamar",
+            "year": "2012",
+            "label": "TDE",
+            "thumbnail": "assets/images/albums/15.jpg",
+            "url": "https://youtube.com/playlist?list=PL8YH4mOwWryXsjz4tBvTrCdkZyubGSMyu"
+        },
+        {
+            "name": "22, A Million",
+            "band": "@boniver",
+            "year": "2016",
+            "label": "Jagjaguwar",
+            "thumbnail": "assets/images/albums/16.jpg",
+            "url": "https://youtube.com/playlist?list=PLZqsyBiYZFQ0XawAlm1ODbtIDXMJflHw4"
+        },
+        {
+            "name": "Discovery",
+            "band": "@daftpunk",
+            "year": "2001",
+            "label": "Virgin",
+            "thumbnail": "assets/images/albums/17.jpg",
+            "url": "https://youtube.com/playlist?list=PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV"
+        },
+        {
+            "name": "F-1 Grand Prix World",
+            "band": "@tsquare",
+            "year": "1992",
+            "label": "Sony Music Entertainment Japan",
+            "thumbnail": "assets/images/albums/18.jpg",
+            "url": "https://youtube.com/playlist?list=PL-avsUELucD9qS1wQP1oZdC3GGbFZP1GT"
+        },
+        {
+            "name": "Haru to Shura",
+            "band": "@harunemuri",
+            "year": "2018",
+            "label": "Perfect Music",
+            "thumbnail": "assets/images/albums/19.jpg",
+            "url": "https://youtube.com/playlist?list=PLec8CSyZsXwbmVRxz2PePTYzvj6u9fss1"
+        },
+        {
+            "name": "Scenery",
+            "band": "@ryofukui",
+            "year": "1976",
+            "label": "Trio Records",
+            "thumbnail": "assets/images/albums/20.jpg",
+            "url": "https://youtu.be/Hrr3dp7zRQY"
+        },
+        {
             "name": "",
             "band": "",
             "year": "",
