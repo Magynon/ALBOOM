@@ -2,12 +2,11 @@ import 'package:app/Objects/cartItem.dart';
 import 'package:app/components/topBarCart.dart';
 import 'package:app/components/topBarHome.dart';
 import 'package:app/components/topBarSettings.dart';
-import 'package:app/screens/cart_screen.dart';
-import 'package:app/screens/settings_screen.dart';
+import 'package:app/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'home_screen.dart';
+import 'cart/cart_screen.dart';
+import 'home/home_screen.dart';
 
 class CurrentScreen extends StatefulWidget {
   const CurrentScreen({Key? key}) : super(key: key);

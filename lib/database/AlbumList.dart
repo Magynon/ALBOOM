@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
-import 'package:app/screens/buyAlbum_landscape.dart';
-import 'package:app/screens/buyAlbum_portrait.dart';
+import 'package:app/screens/cart/buyAlbum_landscape.dart';
+import 'package:app/screens/cart/buyAlbum_portrait.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

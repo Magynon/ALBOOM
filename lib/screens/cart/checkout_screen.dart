@@ -1,10 +1,11 @@
 import 'package:app/Objects/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutDialog extends StatefulWidget {
-  final ListOfCartItems itemList;
-  CheckoutDialog({Key? key, required this.itemList}) : super(key: key);
+  // final ListOfCartItems itemList;
+  CheckoutDialog({Key? key}) : super(key: key);
 
   @override
   _CheckoutDialogState createState() => _CheckoutDialogState();
@@ -309,6 +310,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
       TextEditingController cardNumber,
       TextEditingController expirationDate,
       TextEditingController fullAddress) {
+    final itemList = Provider.of<ListOfCartItems>(context);
     return Container(
       height: sectionHeight * 0.7,
       child: TextButton(
@@ -334,7 +336,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
                   .showSnackBar(SnackBar(content: Text('Wrong date')));
             } else {
               setState(() {
-                widget.itemList.clearQueue();
+                itemList.clearQueue(); // was widget.
               });
               Navigator.pop(context);
             }

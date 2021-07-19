@@ -1,5 +1,5 @@
 import 'package:app/Objects/cartItem.dart';
-import 'package:app/screens/checkout_screen.dart';
+import 'package:app/screens/cart/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -7,8 +7,7 @@ import 'package:provider/provider.dart';
 void checkoutDialog(BuildContext context, ListOfCartItems itemList) {
   WidgetsBinding.instance!.addPostFrameCallback((_) => Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => CheckoutDialog(itemList: itemList)),
+        MaterialPageRoute(builder: (context) => CheckoutDialog()),
       ));
 }
 

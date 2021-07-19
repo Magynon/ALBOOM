@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+
+import 'authBool.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -205,6 +209,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget signInButton(double sectionWidth, double sectionHeight) {
+    final showLogin = Provider.of<ChangeAuth>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: sectionHeight * 0.1),
       child: Container(
@@ -218,6 +224,9 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             print("Username: " + username.text);
             print("Password: " + password.text);
+            setState(() {
+              showLogin.changeState();
+            });
           },
           child: Ink(
             padding: EdgeInsets.zero,
@@ -247,6 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget registerButton(double sectionWidth, double sectionHeight) {
+    final showLogin = Provider.of<ChangeAuth>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: sectionHeight * 0.1),
       child: Container(
@@ -260,6 +271,9 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             print("Username: " + username.text);
             print("Password: " + password.text);
+            setState(() {
+              showLogin.changeState();
+            });
           },
           child: Ink(
             padding: EdgeInsets.zero,
