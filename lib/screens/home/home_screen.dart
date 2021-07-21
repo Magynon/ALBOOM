@@ -1,7 +1,9 @@
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
-import 'package:app/database/AlbumList.dart';
-import 'package:app/database/LatestNews.dart';
+import 'package:app/screens/home/AlbumList.dart';
+import 'package:app/screens/home/LatestNews.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +18,21 @@ class _HomeScreenState extends State<HomeScreen> {
   List liked = [0, 0, 0, 0, 0];
   final likedAlbums = Set<Album>();
 
+  List albumItems = [];
+  List newsItems = [];
+
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('database/db.json');
+    final data = await json.decode(response);
+    setState(() {
+      newsItems = data["news"];
+      albumItems = data["albums"];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final itemList = Provider.of<ListOfCartItems>(context);
     return Scaffold(
       //
       body: Stack(

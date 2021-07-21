@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-void checkoutDialog(BuildContext context, ListOfCartItems itemList) {
-  WidgetsBinding.instance!.addPostFrameCallback((_) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CheckoutDialog()),
-      ));
+void checkoutDialog(BuildContext context) {
+  WidgetsBinding.instance!.addPostFrameCallback(
+    (_) => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckoutDialog(),
+      ),
+    ),
+  );
 }
 
 class CartScreen extends StatefulWidget {
@@ -41,12 +45,14 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height - 70 - 80;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
-    final itemList = Provider.of<ListOfCartItems>(context);
-    for (int i = 0; i < itemList.listOfItems.length; i++) {
-      print(itemList.listOfItems[i].item.name);
-      print(itemList.listOfItems[i].quantity);
-      print("total: " + itemList.total.toString());
-    }
+
+    // final itemList = Provider.of<ListOfCartItems>(context);
+
+    // for (int i = 0; i < itemList.listOfItems.length; i++) {
+    //   print(itemList.listOfItems[i].item.name);
+    //   print(itemList.listOfItems[i].quantity);
+    //   print("total: " + itemList.total.toString());
+    // }
 
     return Scaffold(
       body: SafeArea(
@@ -351,14 +357,8 @@ class _CartScreenState extends State<CartScreen> {
               : MaterialStateColor.resolveWith(
                   (states) => Colors.lightGreenAccent[400]!),
         ),
-        onPressed: () => {
-          if (itemList.listOfItems.isEmpty)
-            {
-              print("EMPTY"),
-            }
-          else
-            {checkoutDialog(context, itemList)},
-        },
+        onPressed: () =>
+            {if (itemList.listOfItems.isNotEmpty) checkoutDialog(context)},
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
           child: Text(

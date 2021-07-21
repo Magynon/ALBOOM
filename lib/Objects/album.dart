@@ -3,8 +3,15 @@ class Album {
   late int price;
   late bool like;
 
-  Album(this.name, this.band, this.coverArt, this.like, this.url, this.year,
-      this.label, this.price);
+  Album(
+      {required this.name,
+      required this.band,
+      required this.coverArt,
+      required this.like,
+      required this.url,
+      required this.year,
+      required this.label,
+      required this.price});
 
   likeAlbum() {
     this.like = true;
@@ -14,6 +21,18 @@ class Album {
   dislikeAlbum() {
     this.like = false;
     print('disliked');
+  }
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+        name: json["name"],
+        band: json["band"],
+        coverArt: json["thumbnail"],
+        label: json["label"],
+        like: false,
+        price: 0,
+        url: json["url"],
+        year: json["year"]);
   }
 }
 

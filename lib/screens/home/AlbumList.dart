@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:app/Objects/album.dart';
 import 'package:app/Objects/cartItem.dart';
@@ -5,6 +6,7 @@ import 'package:app/screens/cart/buyAlbum_landscape.dart';
 import 'package:app/screens/cart/buyAlbum_portrait.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class AlbumList extends StatefulWidget {
   const AlbumList({Key? key}) : super(key: key);
@@ -15,63 +17,42 @@ class AlbumList extends StatefulWidget {
 
 class _AlbumListState extends State<AlbumList> {
   int index = 0;
+  List albumItems = [];
+  List newsItems = [];
 
-  List albums = [
-    'Trilogy',
-    'Appetite For Destruction',
-    'Van Halen I',
-    'Road Games',
-    '1987',
-  ];
-  List thumbnails = [
-    'assets/images/albums/1.jpg',
-    'assets/images/albums/2.jpeg',
-    'assets/images/albums/3.jpg',
-    'assets/images/albums/4.jpg',
-    'assets/images/albums/5.jpg',
-  ];
-  List bands = [
-    '@yngwiemalmsteen',
-    '@guns\'n\'roses',
-    '@vanhalen',
-    '@allanholdsworth',
-    '@whitesnake'
-  ];
-  List urls = [
-    'https://www.youtube.com/watch?v=lOB0TNEBRhA&list=OLAK5uy_lKN3JZIWeYsHYBAZq5lq9ai0yUsoKiYQY',
-    'https://www.youtube.com/watch?v=o1tj2zJ2Wvg&list=OLAK5uy_n13hmdsIozcCRyaY4cRDuuviphpfbzPrw',
-    'https://www.youtube.com/watch?v=KLRO4W9pNrQ&list=PLP_vXshlStIdUFp9pJ7qffQS8TbwmqVkL',
-    'https://www.youtube.com/watch?v=FqizaAJ-rN0',
-    'https://www.youtube.com/watch?v=jaEzfy_gHkM&list=PLgLk-j8sdm7avB5pRF59hgM6bfHxs2Xz_',
-  ];
-  List years = [
-    '1986',
-    '1987',
-    '1978',
-    '1983',
-    '1987',
-  ];
-  List labels = [
-    'Polydor Records',
-    'Geffen Records',
-    'Burbank Records',
-    'Warner Bros. Records',
-    'EMI Records',
-  ];
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('database/db.json');
+    final data = await json.decode(response);
+    setState(() {
+      newsItems = data["news"];
+      albumItems = data["albums"];
+    });
+  }
 
-  int numberOfAlbums = 5;
   final albumList = ListOfAlbums();
 
   @override
   Widget build(BuildContext context) {
     Random rnd;
+    int numberOfAlbums = albumItems.length;
     int min = 5, max = 50, r;
+
+    readJson();
 
     for (int i = 0; i < numberOfAlbums; i++) {
       rnd = new Random();
       r = min + rnd.nextInt(max - min);
-      var album = Album(albums[i], bands[i], thumbnails[i], false, urls[i],
-          years[i], labels[i], r);
+      var album = Album(
+        name: albumItems[i]["name"],
+        band: albumItems[i]["band"],
+        coverArt: albumItems[i]["thumbnail"],
+        like: false,
+        url: albumItems[i]["url"],
+        year: albumItems[i]["year"],
+        label: albumItems[i]["label"],
+        price: r,
+      );
       albumList.addAlbumToList(album);
     }
 

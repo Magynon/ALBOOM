@@ -53,6 +53,7 @@ flutter:
     - assets/images/news/
     - assets/images/author/
     - assets/loginBg/
+    - assets/database/
 
   fonts:
     - family: Manrope

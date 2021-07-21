@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutDialog extends StatefulWidget {
-  // final ListOfCartItems itemList;
   CheckoutDialog({Key? key}) : super(key: key);
 
   @override
@@ -43,6 +42,12 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
+    // final itemList = Provider.of<ListOfCartItems>(context);
+    // for (int i = 0; i < itemList.listOfItems.length; i++) {
+    //   print(itemList.listOfItems[i].item.name);
+    //   print(itemList.listOfItems[i].quantity);
+    //   print("total: " + itemList.total.toString());
+    // }
 
     return GestureDetector(
       onTap: () {
@@ -311,6 +316,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
       TextEditingController expirationDate,
       TextEditingController fullAddress) {
     final itemList = Provider.of<ListOfCartItems>(context);
+
     return Container(
       height: sectionHeight * 0.7,
       child: TextButton(
@@ -336,16 +342,18 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
                   .showSnackBar(SnackBar(content: Text('Wrong date')));
             } else {
               setState(() {
-                itemList.clearQueue(); // was widget.
+                // print("Elemente = " +
+                //     itemList.listOfItems.length.toString());
+                // itemList.clearQueue();
               });
               Navigator.pop(context);
             }
           }
 
-          print("Name: " + holderName.text);
-          print("Card: " + cardNumber.text);
-          print("Date: " + expirationDate.text);
-          print("Address: " + fullAddress.text);
+          // print("Name: " + holderName.text);
+          // print("Card: " + cardNumber.text);
+          // print("Date: " + expirationDate.text);
+          // print("Address: " + fullAddress.text);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sectionHeight * 0.2),
