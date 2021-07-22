@@ -1,5 +1,5 @@
-import 'package:app/Objects/cartItem.dart';
 import 'package:app/screens/cart/checkout_screen.dart';
+import 'package:app/objects/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -46,13 +46,13 @@ class _CartScreenState extends State<CartScreen> {
     double screenHeight = MediaQuery.of(context).size.height - 70 - 80;
     double screenWidth = MediaQuery.of(context).size.width * 0.9;
 
-    // final itemList = Provider.of<ListOfCartItems>(context);
+    final itemList = Provider.of<ListOfCartItems>(context);
 
-    // for (int i = 0; i < itemList.listOfItems.length; i++) {
-    //   print(itemList.listOfItems[i].item.name);
-    //   print(itemList.listOfItems[i].quantity);
-    //   print("total: " + itemList.total.toString());
-    // }
+    for (int i = 0; i < itemList.listOfItems.length; i++) {
+      print(itemList.listOfItems[i].item.name);
+      print(itemList.listOfItems[i].quantity);
+      print("total: " + itemList.total.toString());
+    }
 
     return Scaffold(
       body: SafeArea(

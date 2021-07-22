@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:app/Objects/album.dart';
-import 'package:app/Objects/cartItem.dart';
-import 'package:app/screens/home/AlbumList.dart';
-import 'package:app/screens/home/LatestNews.dart';
+import 'package:app/screens/home/albumList.dart';
+import 'package:app/screens/home/latestNews.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -15,11 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List liked = [0, 0, 0, 0, 0];
-  final likedAlbums = Set<Album>();
-
   List albumItems = [];
   List newsItems = [];
+  List mostLiked = [];
 
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -28,11 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       newsItems = data["news"];
       albumItems = data["albums"];
+      mostLiked = data["mostLiked"];
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    readJson();
     return Scaffold(
       //
       body: Stack(
@@ -65,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       // album list
-                      AlbumList(),
+
+                      AlbumList(mostLiked: mostLiked),
                     ],
                   ),
                 ],
@@ -96,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // latest news list
               Row(
                 children: [
-                  LatestNews(),
+                  LatestNews(newsItems: newsItems),
                 ],
               ),
             ],

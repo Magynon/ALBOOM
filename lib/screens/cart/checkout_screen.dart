@@ -1,4 +1,4 @@
-import 'package:app/Objects/cartItem.dart';
+import 'package:app/objects/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -342,9 +342,8 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
                   .showSnackBar(SnackBar(content: Text('Wrong date')));
             } else {
               setState(() {
-                // print("Elemente = " +
-                //     itemList.listOfItems.length.toString());
-                // itemList.clearQueue();
+                print("Elemente = " + itemList.listOfItems.length.toString());
+                itemList.clearQueue();
               });
               Navigator.pop(context);
             }

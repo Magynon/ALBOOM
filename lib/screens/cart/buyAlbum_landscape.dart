@@ -1,14 +1,13 @@
 import 'dart:ui';
-import 'package:app/Objects/album.dart';
-import 'package:app/Objects/cartItem.dart';
+import 'package:app/objects/album.dart';
 import 'package:app/actions/openURL.dart';
+import 'package:app/objects/cartItem.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BuyScreenLandscape extends StatefulWidget {
   final Album albumObj;
-  final ListOfCartItems itemList;
-  const BuyScreenLandscape(
-      {Key? key, required this.albumObj, required this.itemList})
+  const BuyScreenLandscape({Key? key, required this.albumObj})
       : super(key: key);
 
   @override
@@ -21,6 +20,9 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
   @override
   Widget build(BuildContext context) {
     double localHeight = MediaQuery.of(context).size.height * 0.6;
+    // final cartItemList = Provider.of<ListOfCartItems>(context);
+    final showLogin = Provider.of<ListOfCartItems>(context);
+
     return Stack(children: [
       Positioned(
         bottom: 0,
@@ -233,8 +235,10 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
     CartItem item = CartItem(widget.albumObj, quantity);
     double localHeight = buttonsHeight * 0.6;
 
+    final cartItemList = Provider.of<ListOfCartItems>(context);
+
     void addItem(CartItem item) {
-      widget.itemList.addItemToList(item);
+      cartItemList.addItemToList(item);
       Navigator.pop(context);
     }
 

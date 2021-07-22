@@ -1,10 +1,9 @@
-import 'package:app/Objects/cartItem.dart';
 import 'package:app/components/topBarCart.dart';
 import 'package:app/components/topBarHome.dart';
 import 'package:app/components/topBarSettings.dart';
+import 'package:app/objects/cartItem.dart';
 import 'package:app/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
 
@@ -17,7 +16,7 @@ class CurrentScreen extends StatefulWidget {
 
 class _CurrentScreenState extends State<CurrentScreen> {
   int _selectedIndex = 0;
-  final itemList = ListOfCartItems();
+  final cartItemList = ListOfCartItems();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,11 +26,10 @@ class _CurrentScreenState extends State<CurrentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final showLogin = Provider.of<ChangeAuth>(context);
     List<Widget> _widgetOptions = <Widget>[
-      ChangeNotifierProvider<ListOfCartItems>(
-          create: (context) => ListOfCartItems(), child: HomeScreen()),
-      ChangeNotifierProvider<ListOfCartItems>(
-          create: (context) => ListOfCartItems(), child: CartScreen()),
+      HomeScreen(),
+      CartScreen(),
       SettingsScreen(),
     ];
 

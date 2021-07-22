@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-
 import 'authBool.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -222,8 +221,8 @@ class _LoginScreenState extends State<LoginScreen> {
             splashFactory: NoSplash.splashFactory,
           ),
           onPressed: () {
-            print("Username: " + username.text);
-            print("Password: " + password.text);
+            // print("Username: " + username.text);
+            // print("Password: " + password.text);
             setState(() {
               showLogin.changeState();
             });
@@ -269,8 +268,8 @@ class _LoginScreenState extends State<LoginScreen> {
             splashFactory: NoSplash.splashFactory,
           ),
           onPressed: () {
-            print("Username: " + username.text);
-            print("Password: " + password.text);
+            // print("Username: " + username.text);
+            // print("Password: " + password.text);
             setState(() {
               showLogin.changeState();
             });

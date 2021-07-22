@@ -103,8 +103,6 @@
             "label": "Epic Records",
             "thumbnail": "assets/images/albums/10.jpg",
             "url": "https://www.youtube.com/watch?v=O_ypaOIVmaA&list=OLAK5uy_mILHxnItp26NwCsnd3R_afl3xV4fJ-XwM"
-<<<<<<< HEAD:assets/database/db.json
-=======
         },
         {
             "name": "My Beautiful Dark Twisted Fantasy",
@@ -193,7 +191,57 @@
             "label": "",
             "thumbnail": "assets/images/albums/.jpg",
             "url": ""
->>>>>>> d43f8c2058ba484c703692e661aacad8c76bbfcd:lib/database/db.json
+        }
+    ],
+    "mostLiked":
+    [
+        {
+            "name": "Trilogy",
+            "band": "@yngwiemalmsteen",
+            "year": "1986",
+            "label": "Polydor Records",
+            "thumbnail": "assets/images/albums/1.jpg",
+            "url": "https://www.youtube.com/watch?v=lOB0TNEBRhA&list=OLAK5uy_lKN3JZIWeYsHYBAZq5lq9ai0yUsoKiYQY"
+        },
+        {
+            "name": "Appetite For Destruction",
+            "band": "@guns'n'roses",
+            "year": "1987",
+            "label": "Geffen Records",
+            "thumbnail": "assets/images/albums/2.jpeg",
+            "url": "https://www.youtube.com/watch?v=o1tj2zJ2Wvg&list=OLAK5uy_n13hmdsIozcCRyaY4cRDuuviphpfbzPrw"
+        },
+        {
+            "name": "Van Halen I",
+            "band": "@vanhalen",
+            "year": "1978",
+            "label": "Burbank Records",
+            "thumbnail": "assets/images/albums/3.jpg",
+            "url": "https://www.youtube.com/watch?v=KLRO4W9pNrQ&list=PLP_vXshlStIdUFp9pJ7qffQS8TbwmqVkL"
+        },
+        {
+            "name": "Road Games",
+            "band": "@allanholdsworth",
+            "year": "1983",
+            "label": "Warner Bros. Records",
+            "thumbnail": "assets/images/albums/4.jpg",
+            "url": "https://www.youtube.com/watch?v=FqizaAJ-rN0"
+        },
+        {
+            "name": "1987",
+            "band": "@whitesnake",
+            "year": "1987",
+            "label": "EMI Records",
+            "thumbnail": "assets/images/albums/5.jpg",
+            "url": "https://www.youtube.com/watch?v=jaEzfy_gHkM&list=PLgLk-j8sdm7avB5pRF59hgM6bfHxs2Xz_"
+        },
+        {
+            "name": "Wings Of Tomorrow",
+            "band": "@europe",
+            "year": "1984",
+            "label": "Hot Records",
+            "thumbnail": "assets/images/albums/6.jpg",
+            "url": "https://www.youtube.com/watch?v=Mcv05PbZ5tA"
         }
     ]
 }

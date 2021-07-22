@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
 
 class ChangeAuth with ChangeNotifier {
-  bool showLogin = true;
+  late bool showLogin;
+
+  ChangeAuth() {
+    showLogin = true;
+  }
+
   changeState() {
     showLogin = !showLogin;
-    print(showLogin);
     notifyListeners();
   }
 }
