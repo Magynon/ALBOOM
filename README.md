@@ -1,9 +1,7 @@
 **TODO:**
 
-- signin screen to home
 - work on changing theme option
-- read from json
-- search screens
+- search screen
 - tie login screen to firebase
 
 # Ștefan MĂGIRESCU
