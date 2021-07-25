@@ -1,7 +1,6 @@
-import 'package:app/components/topBarCart.dart';
-import 'package:app/components/topBarHome.dart';
-import 'package:app/components/topBarSettings.dart';
+import 'package:app/components/topBar.dart';
 import 'package:app/objects/cartItem.dart';
+import 'package:app/screens/search/search_screen.dart';
 import 'package:app/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'cart/cart_screen.dart';
@@ -26,21 +25,22 @@ class _CurrentScreenState extends State<CurrentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final showLogin = Provider.of<ChangeAuth>(context);
     List<Widget> _widgetOptions = <Widget>[
       HomeScreen(),
+      SearchScreen(),
       CartScreen(),
       SettingsScreen(),
     ];
 
-    List<PreferredSizeWidget?> _appBarOptions = <PreferredSizeWidget?>[
-      HomeAppBar(),
-      CartAppBar(),
-      SettingsAppBar(),
+    List<String> _appBarOptions = [
+      'Home',
+      'Search',
+      'Cart',
+      'Settings',
     ];
     return Scaffold(
       //
-      appBar: _appBarOptions.elementAt(_selectedIndex),
+      appBar: VariableAppBar(_appBarOptions.elementAt(_selectedIndex)),
       //
       body: _widgetOptions.elementAt(_selectedIndex),
       //
@@ -58,10 +58,15 @@ class _CurrentScreenState extends State<CurrentScreen> {
           ),
           child: BottomNavigationBar(
             backgroundColor: Colors.grey[800]?.withOpacity(0.9),
+            type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.store),

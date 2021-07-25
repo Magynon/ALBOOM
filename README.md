@@ -1,7 +1,6 @@
 **TODO:**
 
 - work on changing theme option
-- search screen
 - tie login screen to firebase
 
 # Ștefan MĂGIRESCU

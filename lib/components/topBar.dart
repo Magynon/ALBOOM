@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SettingsAppBar extends StatelessWidget with PreferredSizeWidget {
+class VariableAppBar extends StatelessWidget with PreferredSizeWidget {
+  final String title;
+  VariableAppBar(this.title);
+
   final double appBarHeight = 70.0;
 
   @override
@@ -15,19 +18,15 @@ class SettingsAppBar extends StatelessWidget with PreferredSizeWidget {
           AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            title: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Settings',
-                      style: TextStyle(
-                        color: Colors.lightGreen[600],
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.lightGreen[600],
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ],
             ),
