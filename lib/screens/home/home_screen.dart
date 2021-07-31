@@ -1,7 +1,8 @@
 import 'package:app/screens/home/albumList.dart';
 import 'package:app/screens/home/latestNews.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
+
 import 'dart:convert';
 
 class HomeScreen extends StatefulWidget {
@@ -18,13 +19,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Fetch content from the json file
   Future<void> readJson() async {
-    final String response = await rootBundle.loadString('database/db.json');
-    final data = await json.decode(response);
-    setState(() {
-      newsItems = data["news"];
-      albumItems = data["albums"];
-      mostLiked = data["mostLiked"];
-    });
+    final response =
+        await http.get(Uri.parse("https://alboom-database.web.app/"));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (this.mounted) {
+        setState(() {
+          newsItems = data["news"];
+          albumItems = data["albums"];
+          mostLiked = data["mostLiked"];
+        });
+      }
+    } else {
+      print("failed to load");
+    }
   }
 
   @override

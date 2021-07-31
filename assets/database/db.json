@@ -116,7 +116,7 @@
             "name": "Blonde",
             "band": "@frankocean",
             "year": "2016",
-            "label": "Boys Don't Cry",
+            "label": "Boys Dont Cry",
             "thumbnail": "assets/images/albums/12.jpg",
             "url": "https://youtube.com/playlist?list=PLzoqV_VvWIwGzYTcm3r1JwqgQOBXTvKyd"
         },
@@ -183,14 +183,6 @@
             "label": "Trio Records",
             "thumbnail": "assets/images/albums/20.jpg",
             "url": "https://youtu.be/Hrr3dp7zRQY"
-        },
-        {
-            "name": "",
-            "band": "",
-            "year": "",
-            "label": "",
-            "thumbnail": "assets/images/albums/.jpg",
-            "url": ""
         }
     ],
     "mostLiked":

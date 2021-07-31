@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ALBOOM',
       debugShowCheckedModeBanner: false,
-      // home: Authenticate(),
-      home: CurrentScreen(),
+      home: Authenticate(),
+      // home: CurrentScreen(),
       theme: ThemeData(
         primaryColor: Colors.grey[900],
         accentColor: Colors.lightGreen[800],

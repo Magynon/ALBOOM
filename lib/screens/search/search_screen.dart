@@ -1,6 +1,6 @@
-import 'package:app/objects/album.dart';
 import 'package:app/screens/search/searchList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -15,12 +15,19 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     searchedItem.addListener(_printLatestValue);
   }
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
     searchedItem.dispose();
     super.dispose();
   }

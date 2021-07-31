@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "856902971236",
+    "project_id": "alboom-a2b32",
+    "storage_bucket": "alboom-a2b32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856902971236:android:2e0a36e0d192d7b6b71471",
+        "android_client_info": {
+          "package_name": "com.magy.alboom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856902971236-97g8er8pu4j0vog9k2tj04u6mvs501mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuti-Xwc-fblG-g053s4Fsjo_Yrm3E478"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856902971236-97g8er8pu4j0vog9k2tj04u6mvs501mo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

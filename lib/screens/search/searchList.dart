@@ -21,20 +21,24 @@ class AlbumSearchList extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     int noOfReturnedAlbums = 1;
 
-    return Expanded(
-      child: SizedBox(
-        child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            // padding: EdgeInsets.only(top: 10),
-            shrinkWrap: true,
-            itemCount: noOfReturnedAlbums,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.02),
-                child: _listElement(index, screenHeight * 0.1, screenWidth),
-              );
-            }),
-      ),
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                // padding: EdgeInsets.only(top: 10),
+                shrinkWrap: true,
+                itemCount: noOfReturnedAlbums,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: screenHeight * 0.02),
+                    child: _listElement(index, screenHeight * 0.1, screenWidth),
+                  );
+                }),
+          ),
+        ),
+      ],
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:app/actions/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _auth = AuthService();
   final username = TextEditingController();
   final password = TextEditingController();
   bool loginBool = true;
@@ -220,9 +222,16 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.zero,
             splashFactory: NoSplash.splashFactory,
           ),
-          onPressed: () {
+          onPressed: () async {
             // print("Username: " + username.text);
             // print("Password: " + password.text);
+            dynamic result = await _auth.signInAnon();
+            if (result == null) {
+              print("Error signing in");
+            } else {
+              print("signed in" + result.toString());
+            }
+
             setState(() {
               showLogin.changeState();
             });

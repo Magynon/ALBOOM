@@ -1,7 +1,9 @@
 **TODO:**
 
+- sign in with username & password
+- make loading screen to avoid reading json on home screen
+- find a way to upload assets to firebase
 - work on changing theme option
-- tie login screen to firebase
 
 # Ștefan MĂGIRESCU
 
