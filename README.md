@@ -24,6 +24,7 @@ This is an app designed to let the user listen to online previews of the albums 
     <br><br>
 - **SEARCH**
   - search through the database of albums (in progress)
+    <br><br>
 - **CART**
   - loads up the list of albums added to the cart
   - each item features the album art, name, artist, quantity (instantly modifiable by using the +/- buttons) and price in dollars
