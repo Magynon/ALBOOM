@@ -1,9 +1,6 @@
 import 'package:app/screens/home/albumList.dart';
 import 'package:app/screens/home/latestNews.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'dart:convert';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -13,39 +10,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List albumItems = [];
-  List newsItems = [];
-  List mostLiked = [];
-
-  // Fetch content from the json file
-  Future<void> readJson() async {
-    final response =
-        await http.get(Uri.parse("https://alboom-database.web.app/"));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (this.mounted) {
-        setState(() {
-          newsItems = data["news"];
-          albumItems = data["albums"];
-          mostLiked = data["mostLiked"];
-        });
-      }
-    } else {
-      print("failed to load");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    readJson();
     return Scaffold(
       //
       body: Stack(
         children: [
-          // proper body
           ListView(
-            // mainAxisSize: MainAxisSize.min,
             shrinkWrap: true,
             children: [
               // album section
@@ -71,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       // album list
-
-                      AlbumList(mostLiked: mostLiked),
+                      AlbumList(),
                     ],
                   ),
                 ],
@@ -84,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Divider(color: Colors.white30),
               ),
+
               // news section
               Padding(
                 padding: const EdgeInsets.fromLTRB(40.0, 10.0, 0.0, 25.0),
@@ -103,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // latest news list
               Row(
                 children: [
-                  LatestNews(newsItems: newsItems),
+                  LatestNews(),
                 ],
               ),
             ],

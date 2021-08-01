@@ -1,34 +1,33 @@
 import 'package:app/Objects/newsActions.dart';
+import 'package:app/objects/homeScreenLists.dart';
 import 'package:flutter/material.dart';
 import 'package:app/actions/openURL.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 class LatestNews extends StatefulWidget {
-  final List newsItems;
-  const LatestNews({Key? key, required this.newsItems}) : super(key: key);
+  const LatestNews({Key? key}) : super(key: key);
 
   @override
   _LatestNewsState createState() => _LatestNewsState();
 }
 
 class _LatestNewsState extends State<LatestNews> {
-  List urls = [
-    'https://www.youtube.com/watch?v=Z2QCORi-u0U',
-    'https://www.youtube.com/watch?v=F74Tw99qfRg',
-    'https://www.youtube.com/watch?v=F89-MOy7Xfg',
-    'https://www.youtube.com/watch?v=boMOhT--utg',
-  ];
+  String prefix =
+      "https://firebasestorage.googleapis.com/v0/b/alboom-a2b32.appspot.com/o";
 
   @override
   Widget build(BuildContext context) {
+    var newsItemsProvider = Provider.of<NewsItems>(context);
     return Expanded(
       child: SizedBox(
         child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.only(top: 10),
             shrinkWrap: true,
-            itemCount:
-                widget.newsItems.length > 10 ? 10 : widget.newsItems.length,
+            itemCount: newsItemsProvider.newsItems.length > 10
+                ? 10
+                : newsItemsProvider.newsItems.length,
             itemBuilder: (BuildContext context, int index) {
               return _listElement(index);
             }),
@@ -37,6 +36,7 @@ class _LatestNewsState extends State<LatestNews> {
   }
 
   Widget _listElement(int index) {
+    var newsItemsProvider = Provider.of<NewsItems>(context);
     return Column(
       children: [
         Padding(
@@ -51,9 +51,10 @@ class _LatestNewsState extends State<LatestNews> {
             child: Stack(children: [
               // thumbnail
               GestureDetector(
-                onTap: () => openLink(widget.newsItems[index]["url"]),
-                child: Image.asset(
-                  widget.newsItems[index]["thumbnail"],
+                onTap: () =>
+                    openLink(newsItemsProvider.newsItems[index]["url"]),
+                child: Image.network(
+                  prefix + newsItemsProvider.newsItems[index]["thumbnail"],
                   width: MediaQuery.of(context).size.width,
                 ),
               ),
@@ -75,6 +76,7 @@ class _LatestNewsState extends State<LatestNews> {
       NewsActions('Hide', Icons.visibility),
     ];
     double localWidth = MediaQuery.of(context).size.width - 60;
+    var newsItemsProvider = Provider.of<NewsItems>(context);
     return Container(
       height: 40,
       width: localWidth,
@@ -90,7 +92,7 @@ class _LatestNewsState extends State<LatestNews> {
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 // headline text
                 child: Text(
-                  widget.newsItems[index]["headline"],
+                  newsItemsProvider.newsItems[index]["headline"],
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
@@ -107,17 +109,18 @@ class _LatestNewsState extends State<LatestNews> {
   }
 
   Widget headlineActions(List<NewsActions> choices, int index) {
+    var newsItemsProvider = Provider.of<NewsItems>(context);
     return Container(
       child: PopupMenuButton<NewsActions>(
         onSelected: (NewsActions choice) {
           if (choice.text == 'Share') {
             final RenderBox box = context.findRenderObject() as RenderBox;
-            Share.share(widget.newsItems[index]["url"],
+            Share.share(newsItemsProvider.newsItems[index]["url"],
                 sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
           } else {
             setState(() {
-              widget.newsItems.removeAt(index);
-              print(widget.newsItems);
+              newsItemsProvider.newsItems.removeAt(index);
+              print(newsItemsProvider.newsItems);
             });
           }
         },

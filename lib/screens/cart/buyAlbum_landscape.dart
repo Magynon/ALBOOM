@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BuyScreenLandscape extends StatefulWidget {
-  final Album albumObj;
-  const BuyScreenLandscape({Key? key, required this.albumObj})
-      : super(key: key);
+  late int index;
+  BuyScreenLandscape({Key? key, required this.index}) : super(key: key);
 
   @override
   _BuyScreenLandscapeState createState() => _BuyScreenLandscapeState();
@@ -20,8 +19,6 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
   @override
   Widget build(BuildContext context) {
     double localHeight = MediaQuery.of(context).size.height * 0.6;
-    // final cartItemList = Provider.of<ListOfCartItems>(context);
-    final showLogin = Provider.of<ListOfCartItems>(context);
 
     return Stack(children: [
       Positioned(
@@ -46,6 +43,9 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
   }
 
   Widget bgImg() {
+    var albumList = Provider.of<ListOfAlbums>(context);
+    var albumObj = albumList.listOfAlbums.elementAt(widget.index);
+
     return Column(
       children: [
         Expanded(
@@ -69,7 +69,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                     topRight: Radius.circular(60),
                   ),
                   child: Image.asset(
-                    widget.albumObj.coverArt,
+                    albumObj.coverArt,
                   ),
                 ),
                 ClipRRect(
@@ -100,6 +100,9 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
     double albumArtHeight = localHeight * 0.35;
     double albumDetailsHeight = localHeight * 0.2;
 
+    var albumList = Provider.of<ListOfAlbums>(context);
+    var albumObj = albumList.listOfAlbums.elementAt(widget.index);
+
     return Wrap(
       direction: Axis.horizontal,
       children: [
@@ -119,7 +122,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Image.asset(
-                      widget.albumObj.coverArt,
+                      albumObj.coverArt,
                     ),
                   ),
                 ),
@@ -139,7 +142,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                         right: screenWidth * 0.03,
                       ),
                       child: Text(
-                        widget.albumObj.name,
+                        albumObj.name,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -151,7 +154,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                     Padding(
                       padding: EdgeInsets.all(albumArtHeight * 0.06),
                       child: Text(
-                        widget.albumObj.band,
+                        albumObj.band,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: localHeight * 0.05,
@@ -174,9 +177,9 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                               children: [
                                 Text(
                                   'Liked: ' +
-                                      (widget.albumObj.like ? 'Yes' : 'No') +
+                                      (albumObj.like ? 'Yes' : 'No') +
                                       ' | Year: ' +
-                                      widget.albumObj.year,
+                                      albumObj.year,
                                   style: TextStyle(
                                     color: Colors.white70,
                                     fontSize: albumDetailsHeight * 0.3,
@@ -184,7 +187,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                                   ),
                                 ),
                                 Text(
-                                  'Label: ' + widget.albumObj.label,
+                                  'Label: ' + albumObj.label,
                                   style: TextStyle(
                                     color: Colors.white70,
                                     fontSize: albumDetailsHeight * 0.3,
@@ -232,7 +235,10 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
   }
 
   Widget cartButton(double buttonsHeight) {
-    CartItem item = CartItem(widget.albumObj, quantity);
+    var albumList = Provider.of<ListOfAlbums>(context);
+    var albumObj = albumList.listOfAlbums.elementAt(widget.index);
+
+    CartItem item = CartItem(albumObj, quantity);
     double localHeight = buttonsHeight * 0.6;
 
     final cartItemList = Provider.of<ListOfCartItems>(context);
@@ -307,6 +313,9 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
   }
 
   Widget previewButton(double localHeight) {
+    var albumList = Provider.of<ListOfAlbums>(context);
+    var albumObj = albumList.listOfAlbums.elementAt(widget.index);
+
     return Container(
       // color: Colors.green,
       height: localHeight,
@@ -325,7 +334,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                   overlayColor: MaterialStateColor.resolveWith(
                       (states) => Colors.transparent),
                 ),
-                onPressed: () => openLink(widget.albumObj.url),
+                onPressed: () => openLink(albumObj.url),
                 child: Text(
                   'Preview',
                   textAlign: TextAlign.center,

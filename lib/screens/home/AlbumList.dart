@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'package:app/objects/album.dart';
+import 'package:app/objects/homeScreenLists.dart';
 import 'package:app/screens/cart/buyAlbum_landscape.dart';
 import 'package:app/screens/cart/buyAlbum_portrait.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AlbumList extends StatefulWidget {
-  final List mostLiked;
-
-  AlbumList({Key? key, required this.mostLiked}) : super(key: key);
+  AlbumList({Key? key}) : super(key: key);
 
   @override
   _AlbumListState createState() => _AlbumListState();
@@ -16,30 +16,10 @@ class AlbumList extends StatefulWidget {
 class _AlbumListState extends State<AlbumList> {
   int index = 0;
 
-  final albumList = ListOfAlbums();
-
   @override
   Widget build(BuildContext context) {
-    Random rnd;
-    int numberOfAlbums = widget.mostLiked.length;
-    int min = 5, max = 50, r;
-
-    for (int i = 0; i < numberOfAlbums; i++) {
-      rnd = new Random();
-      r = min + rnd.nextInt(max - min);
-      var album = Album(
-        name: widget.mostLiked[i]["name"],
-        band: widget.mostLiked[i]["band"],
-        coverArt: widget.mostLiked[i]["thumbnail"],
-        like: false,
-        url: widget.mostLiked[i]["url"],
-        year: widget.mostLiked[i]["year"],
-        label: widget.mostLiked[i]["label"],
-        price: r,
-      );
-      albumList.addAlbumToList(album);
-    }
-
+    var albumList = Provider.of<ListOfAlbums>(context);
+    var numberOfAlbums = albumList.listOfAlbums.length;
     // main album list builder
     return Container(
       child: SizedBox(
@@ -58,7 +38,7 @@ class _AlbumListState extends State<AlbumList> {
                   _albumArt(index),
                   Container(
                     width: 150,
-                    child: _likeArea(albumList, index),
+                    child: _likeArea(index),
                   ),
                 ],
               ),
@@ -70,6 +50,7 @@ class _AlbumListState extends State<AlbumList> {
   }
 
   Widget _albumArt(int index) {
+    var albumList = Provider.of<ListOfAlbums>(context);
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -78,11 +59,9 @@ class _AlbumListState extends State<AlbumList> {
             return OrientationBuilder(
               builder: (context, orientation) {
                 if (orientation == Orientation.portrait)
-                  return BuyScreenPortrait(
-                      albumObj: albumList.listOfAlbums.elementAt(index));
+                  return BuyScreenPortrait(index: index);
                 else
-                  return BuyScreenLandscape(
-                      albumObj: albumList.listOfAlbums.elementAt(index));
+                  return BuyScreenLandscape(index: index);
               },
             );
           },
@@ -90,7 +69,7 @@ class _AlbumListState extends State<AlbumList> {
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
-        child: Image.asset(
+        child: Image.network(
           albumList.listOfAlbums.elementAt(index).coverArt,
           width: 150.0,
           height: 150.0,
@@ -99,7 +78,8 @@ class _AlbumListState extends State<AlbumList> {
     );
   }
 
-  Widget _likeArea(ListOfAlbums albumList, int index) {
+  Widget _likeArea(int index) {
+    var albumList = Provider.of<ListOfAlbums>(context);
     final alreadyLiked = albumList.listOfAlbums.elementAt(index).like;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

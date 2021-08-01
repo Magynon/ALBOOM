@@ -1,11 +1,13 @@
 // @dart=2.9
+import 'package:app/objects/album.dart';
 import 'package:app/screens/auth/authBool.dart';
 import 'package:app/screens/auth/authenticate.dart';
 import 'package:app/objects/cartItem.dart';
-import 'package:app/screens/current_screen.dart';
-import 'package:app/screens/search/search_screen.dart';
+import 'package:app/screens/loading/loadingObj.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'objects/homeScreenLists.dart';
 
 void main() => runApp(
       AppProviders(
@@ -42,6 +44,12 @@ class AppProviders extends StatelessWidget {
         ChangeNotifierProvider<ListOfCartItems>(
             create: (context) => ListOfCartItems()),
         ChangeNotifierProvider<ChangeAuth>(create: (context) => ChangeAuth()),
+        ChangeNotifierProvider<LoadingVar>(create: (context) => LoadingVar()),
+        ChangeNotifierProvider<AlbumItems>(create: (context) => AlbumItems()),
+        ChangeNotifierProvider<NewsItems>(create: (context) => NewsItems()),
+        ChangeNotifierProvider<MostLiked>(create: (context) => MostLiked()),
+        ChangeNotifierProvider<ListOfAlbums>(
+            create: (context) => ListOfAlbums()),
       ],
       child: child,
     );

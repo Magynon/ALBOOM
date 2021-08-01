@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Album {
   late String name, band, coverArt, url, year, label;
   late int price;
@@ -36,7 +38,7 @@ class Album {
   }
 }
 
-class ListOfAlbums {
+class ListOfAlbums with ChangeNotifier {
   late List<Album> listOfAlbums;
   late int numberOfAlbums;
 
@@ -48,5 +50,6 @@ class ListOfAlbums {
   addAlbumToList(Album album) {
     listOfAlbums.add(album);
     numberOfAlbums += 1;
+    notifyListeners();
   }
 }

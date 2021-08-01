@@ -141,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
             child: Row(
               children: [
                 Container(
-                  child: Image.asset(
+                  child: Image.network(
                     itemList.listOfItems[index].item.coverArt,
                     width: imageWidth,
                   ),

@@ -1,8 +1,6 @@
 **TODO:**
 
 - sign in with username & password
-- make loading screen to avoid reading json on home screen
-- find a way to upload assets to firebase
 - work on changing theme option
 
 # Ștefan MĂGIRESCU
@@ -24,6 +22,8 @@ This is an app designed to let the user listen to online previews of the albums 
   - loads the latest news
   - tapping the article thumbnail takes the user to YouTube (a random song of the band in question), while tapping the dot menu opens up the _SHARE_ and _HIDE_ options
     <br><br>
+- **SEARCH**
+  - search through the database of albums (in progress)
 - **CART**
   - loads up the list of albums added to the cart
   - each item features the album art, name, artist, quantity (instantly modifiable by using the +/- buttons) and price in dollars
