@@ -1,3 +1,4 @@
+import 'package:app/actions/auth.dart';
 import 'package:flutter/material.dart';
 import 'creditsScreen.dart';
 
@@ -8,6 +9,9 @@ executeCommand(BuildContext context, String command) {
       break;
     case 'creditsDialog':
       creditsDialog(context);
+      break;
+    case 'signOut':
+      signout();
       break;
   }
 }
@@ -21,6 +25,11 @@ creditsDialog(BuildContext context) {
       ));
 }
 
+signout() async {
+  final AuthService _auth = AuthService();
+  await _auth.signOut();
+}
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -32,10 +41,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   List<String> settingOptions = [
     "Change app theme",
     "Credits",
+    "Sign out",
   ];
   List<IconData?> iconOptions = [
     Icons.thermostat,
     Icons.book,
+    Icons.door_front,
   ];
 
   @override
@@ -95,6 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     List<String> listOfFunctions = [
       "themeChange",
       "creditsDialog",
+      "signOut",
     ];
     return Padding(
       padding: EdgeInsets.only(

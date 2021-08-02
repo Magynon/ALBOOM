@@ -27,8 +27,8 @@ dependencies:
   url_launcher: ^6.0.9
   share: ^2.0.4
   provider: ^5.0.0
-  firebase_auth: ^0.14.0+5
-  cloud_firestore: ^0.12.9+4
+  firebase_auth: ^3.0.1
+  cloud_firestore: ^2.4.0
   http: ^0.13.3
   flutter_spinkit: ^5.0.0
 
@@ -52,11 +52,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/albums/
-    - assets/images/news/
     - assets/images/author/
-    - assets/loginBg/
-    - assets/database/
+    - assets/images/loginBg/
 
   fonts:
     - family: Manrope

@@ -2,8 +2,6 @@ import 'package:app/actions/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
-import 'authBool.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,9 +12,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
   final username = TextEditingController();
   final password = TextEditingController();
   bool loginBool = true;
+  String error = '';
 
   @override
   dispose() {
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: FittedBox(
                   fit: BoxFit.fill,
                   child: Image.asset(
-                    "assets/loginBg/bg.jpg",
+                    "assets/images/loginBg/bg.jpg",
                   ),
                 ),
               ),
@@ -116,89 +116,108 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(30),
         color: Colors.white,
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(sectionHeight * 0.06),
-            child: Icon(
-              Icons.person,
-              color: Colors.grey,
-              size: sectionHeight * 0.08,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: sectionWidth * 0.15),
-            child: TextField(
-              controller: username,
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(
-                color: Colors.grey[800],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(sectionHeight * 0.06),
+              child: Icon(
+                Icons.person,
+                color: Colors.grey,
+                size: sectionHeight * 0.08,
               ),
-              decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.only(
-                  left: 20,
-                  top: sectionHeight * 0.04,
-                  bottom: sectionHeight * 0.04,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                hintText: 'Username',
-                hintStyle: TextStyle(
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: sectionWidth * 0.15),
+              child: TextFormField(
+                controller: username,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(
                   color: Colors.grey[800],
-                  fontSize: sectionHeight * 0.03,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.only(
+                    left: 20,
+                    top: sectionHeight * 0.04,
+                    bottom: sectionHeight * 0.04,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  hintText: 'Username',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: sectionHeight * 0.03,
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: sectionWidth * 0.15,
-                vertical: sectionHeight * 0.06),
-            child: TextField(
-              controller: password,
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(
-                color: Colors.grey[800],
-              ),
-              decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.only(
-                  left: 20,
-                  top: sectionHeight * 0.04,
-                  bottom: sectionHeight * 0.04,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                hintText: 'Password',
-                hintStyle: TextStyle(
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: sectionWidth * 0.15,
+                  vertical: sectionHeight * 0.06),
+              child: TextFormField(
+                controller: password,
+                obscureText: true,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(
                   color: Colors.grey[800],
-                  fontSize: sectionHeight * 0.03,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.only(
+                    left: 20,
+                    top: sectionHeight * 0.04,
+                    bottom: sectionHeight * 0.04,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  hintText: 'Password',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: sectionHeight * 0.03,
+                  ),
                 ),
               ),
             ),
-          ),
-          buttonSelector(sectionWidth, sectionHeight),
-          SizedBox(
-            height: sectionHeight * 0.1,
-          ),
-          Text(
-            "Forgot password? LOL",
-            style: TextStyle(color: Colors.grey),
-          ),
-        ],
+            buttonSelector(sectionWidth, sectionHeight),
+            SizedBox(
+              height: sectionHeight * 0.03,
+            ),
+            Text(
+              error,
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(
+              height: sectionHeight * 0.07,
+            ),
+            GestureDetector(
+              onTap: () async {
+                await _auth.signInAnon();
+              },
+              child: Text(
+                "Forgot password? Anonymous login!",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -210,8 +229,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget signInButton(double sectionWidth, double sectionHeight) {
-    final showLogin = Provider.of<ChangeAuth>(context);
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: sectionHeight * 0.1),
       child: Container(
@@ -223,18 +240,15 @@ class _LoginScreenState extends State<LoginScreen> {
             splashFactory: NoSplash.splashFactory,
           ),
           onPressed: () async {
-            // print("Username: " + username.text);
-            // print("Password: " + password.text);
-            dynamic result = await _auth.signInAnon();
-            if (result == null) {
-              print("Error signing in");
-            } else {
-              print("signed in" + result.toString());
+            if (_formKey.currentState!.validate()) {
+              dynamic result = await _auth.signInWithEmailAndPassword(
+                  username.text, password.text);
+              if (result == null) {
+                setState(() {
+                  error = 'Invalid credentials!';
+                });
+              }
             }
-
-            setState(() {
-              showLogin.changeState();
-            });
           },
           child: Ink(
             padding: EdgeInsets.zero,
@@ -264,8 +278,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget registerButton(double sectionWidth, double sectionHeight) {
-    final showLogin = Provider.of<ChangeAuth>(context);
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: sectionHeight * 0.1),
       child: Container(
@@ -276,12 +288,18 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.zero,
             splashFactory: NoSplash.splashFactory,
           ),
-          onPressed: () {
+          onPressed: () async {
             // print("Username: " + username.text);
             // print("Password: " + password.text);
-            setState(() {
-              showLogin.changeState();
-            });
+            if (_formKey.currentState!.validate()) {
+              dynamic result = await _auth.registerWithEmailAndPassword(
+                  username.text, password.text);
+              if (result == null) {
+                setState(() {
+                  error = "Please provide valid credentials";
+                });
+              }
+            }
           },
           child: Ink(
             padding: EdgeInsets.zero,

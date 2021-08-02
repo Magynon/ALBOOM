@@ -1,19 +1,26 @@
-// @dart=2.9
 import 'package:app/objects/album.dart';
-import 'package:app/screens/auth/authBool.dart';
 import 'package:app/screens/auth/authenticate.dart';
 import 'package:app/objects/cartItem.dart';
 import 'package:app/screens/loading/loadingObj.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'actions/auth.dart';
 import 'objects/homeScreenLists.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(
-      AppProviders(
-        child: MyApp(),
-      ),
-    );
+import 'objects/user.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  runApp(
+    AppProviders(
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,15 +42,18 @@ class MyApp extends StatelessWidget {
 class AppProviders extends StatelessWidget {
   final Widget child;
 
-  AppProviders({this.child});
+  AppProviders({required this.child});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        StreamProvider<MyUser?>.value(
+            catchError: (_, __) => null,
+            value: AuthService().user,
+            initialData: null),
         ChangeNotifierProvider<ListOfCartItems>(
             create: (context) => ListOfCartItems()),
-        ChangeNotifierProvider<ChangeAuth>(create: (context) => ChangeAuth()),
         ChangeNotifierProvider<LoadingVar>(create: (context) => LoadingVar()),
         ChangeNotifierProvider<AlbumItems>(create: (context) => AlbumItems()),
         ChangeNotifierProvider<NewsItems>(create: (context) => NewsItems()),

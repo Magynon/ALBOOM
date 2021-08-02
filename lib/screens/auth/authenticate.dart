@@ -1,4 +1,4 @@
-import 'package:app/screens/auth/authBool.dart';
+import 'package:app/objects/user.dart';
 import 'package:app/screens/auth/login_screen.dart';
 import 'package:app/screens/loading/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
-    final showLogin = Provider.of<ChangeAuth>(context);
-    return showLogin.showLogin ? LoginScreen() : Wrapper();
+    final user = Provider.of<MyUser?>(context);
+    return user == null ? LoginScreen() : Wrapper();
   }
 }

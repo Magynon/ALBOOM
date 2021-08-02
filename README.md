@@ -1,6 +1,6 @@
 **TODO:**
 
-- sign in with username & password
+- search screen database
 - work on changing theme option
 
 # Ștefan MĂGIRESCU
