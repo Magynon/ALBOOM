@@ -223,8 +223,15 @@ class _BuyScreenPortraitState extends State<BuyScreenPortrait> {
     final cartItemList = Provider.of<ListOfCartItems>(context);
 
     void addItem(CartItem item) {
-      cartItemList.addItemToList(item);
-      Navigator.pop(context);
+      if (quantity != 0) {
+        cartItemList.addItemToList(item);
+        Navigator.pop(context);
+      } else {
+        final snackBar = SnackBar(
+          content: const Text('Quantity must not be 0!'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
 
     return Container(

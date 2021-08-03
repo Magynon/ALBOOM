@@ -68,7 +68,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                     topLeft: Radius.circular(60),
                     topRight: Radius.circular(60),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     albumObj.coverArt,
                   ),
                 ),
@@ -121,7 +121,7 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
                   // color: Colors.blueGrey,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
+                    child: Image.network(
                       albumObj.coverArt,
                     ),
                   ),
@@ -244,8 +244,15 @@ class _BuyScreenLandscapeState extends State<BuyScreenLandscape> {
     final cartItemList = Provider.of<ListOfCartItems>(context);
 
     void addItem(CartItem item) {
-      cartItemList.addItemToList(item);
-      Navigator.pop(context);
+      if (quantity != 0) {
+        cartItemList.addItemToList(item);
+        Navigator.pop(context);
+      } else {
+        final snackBar = SnackBar(
+          content: const Text('Quantity must not be 0!'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
 
     return Container(

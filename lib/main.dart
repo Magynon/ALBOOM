@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'actions/auth.dart';
 import 'objects/homeScreenLists.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'objects/user.dart';
 
 void main() async {

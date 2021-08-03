@@ -6,7 +6,7 @@ class AlbumSearchList extends StatelessWidget {
 
   final album = Album(
     band: 'Rising Force',
-    coverArt: "assets/images/albums/1.jpg",
+    coverArt: "networks/images/albums/1.jpg",
     label: 'Polydor',
     like: false,
     name: "Trilogy",
@@ -59,7 +59,7 @@ class AlbumSearchList extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  child: Image.asset(
+                  child: Image.network(
                     album.coverArt,
                     width: imageWidth,
                   ),
