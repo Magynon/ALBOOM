@@ -6,7 +6,8 @@ class AlbumSearchList extends StatelessWidget {
 
   final album = Album(
     band: 'Rising Force',
-    coverArt: "networks/images/albums/1.jpg",
+    coverArt:
+        "https://firebasestorage.googleapis.com/v0/b/alboom-a2b32.appspot.com/o/images%2Falbums%2F1.jpg?alt=media&token=de5e38b7-36ee-4b08-888a-82519a904fa9",
     label: 'Polydor',
     like: false,
     name: "Trilogy",

@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
       title: 'ALBOOM',
       debugShowCheckedModeBanner: false,
       home: Authenticate(),
-      // home: CurrentScreen(),
       theme: ThemeData(
         primaryColor: Colors.grey[900],
         accentColor: Colors.lightGreen[800],

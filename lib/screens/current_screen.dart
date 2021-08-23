@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:app/components/topBar.dart';
 import 'package:app/objects/cartItem.dart';
+import 'package:app/screens/noInternet/noInternet_screen.dart';
 import 'package:app/screens/search/search_screen.dart';
 import 'package:app/screens/settings/settings_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
@@ -38,12 +42,20 @@ class _CurrentScreenState extends State<CurrentScreen> {
       'Cart',
       'Settings',
     ];
+
     return Scaffold(
-      //
       appBar: VariableAppBar(_appBarOptions.elementAt(_selectedIndex)),
-      //
-      body: _widgetOptions.elementAt(_selectedIndex),
-      //
+      body: StreamBuilder(
+        stream: Connectivity().onConnectivityChanged,
+        builder:
+            (BuildContext context, AsyncSnapshot<ConnectivityResult> snapshot) {
+          if (snapshot.hasData && snapshot.data != ConnectivityResult.none) {
+            return _widgetOptions.elementAt(_selectedIndex);
+          } else {
+            return NoInternet();
+          }
+        },
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
